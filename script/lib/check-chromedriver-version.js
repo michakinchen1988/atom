@@ -8,6 +8,7 @@ module.exports = function() {
   // Chromedriver should be specified as ^n.x where n matches the Electron major version
   const chromedriverVer = buildMetadata.dependencies['electron-chromedriver'];
   const mksnapshotVer = buildMetadata.dependencies['electron-mksnapshot'];
+  const mksnapshotActualVer = require('../node_modules/electron-mksnapshot/package.json').version;
 
   // Always use caret on electron-chromedriver so that it can pick up the best minor/patch versions
   if (!chromedriverVer.startsWith('^')) {
@@ -16,9 +17,9 @@ module.exports = function() {
     );
   }
 
-  if (!mksnapshotVer.startsWith('^')) {
+  if (!mksnapshotVer.startsWith('^') && !mksnapshotVer.startsWith('git')) {
     throw new Error(
-      `electron-mksnapshot version in script/package.json should start with a caret to match latest patch version.`
+      `electron-mksnapshot version in script/package.json should start with a caret to match latest patch version. (Git URLs starting with "git" (e.g. "git://" or "git+https://" ) are also allowed, but a version from the npm package registry is preferable.)`
     );
   }
 
@@ -33,7 +34,7 @@ module.exports = function() {
     );
   }
 
-  if (!semver.satisfies(electronVer, mksnapshotVer)) {
+  if (!semver.satisfies(electronVer, mksnapshotActualVer)) {
     throw new Error(
       `electron-mksnapshot ${mksnapshotVer} incompatible with electron ${electronVer}.\n` +
         'Did you upgrade electron in package.json and forget to upgrade electron-mksnapshot in ' +

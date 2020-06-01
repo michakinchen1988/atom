@@ -9,8 +9,8 @@ module.exports = function() {
   // Mksnapshot should be at least v9.0.2
   const chromedriverVer = buildMetadata.dependencies['electron-chromedriver'];
   const mksnapshotVer = buildMetadata.dependencies['electron-mksnapshot'];
-  const chromedriverActualVer = require('../node_modules/electron-chromedriver/package.json').version;
-  const mksnapshotActualVer = require('../node_modules/electron-mksnapshot/package.json').version;
+  const chromedriverActualVer = require('electron-chromedriver/package.json').version;
+  const mksnapshotActualVer = require('electron-mksnapshot/package.json').version;
 
   // Always use caret on electron-chromedriver so that it can pick up the best minor/patch versions
   if (!chromedriverVer.startsWith('^')) {

@@ -5,10 +5,10 @@ const electronVersion = require('./config').appMetadata.electronVersion;
 
 if (process.env.ELECTRON_CUSTOM_VERSION !== electronVersion) {
   npmlog.info(
-    `env var ELECTRON_CUSTOM_VERSION is either not set,\n` +
+    `env var ELECTRON_CUSTOM_VERSION is not set,\n` +
       `or doesn't match electronVersion in ../package.json.\n` +
       `(is: "${process.env.ELECTRON_CUSTOM_VERSION}", wanted: "${electronVersion}").\n` +
-      `re-downloading chromedriver and mksnapshot.\n`
+      `Setting, and re-downloading chromedriver and mksnapshot.\n`
   );
 
   process.env.ELECTRON_CUSTOM_VERSION = electronVersion;
@@ -18,14 +18,6 @@ if (process.env.ELECTRON_CUSTOM_VERSION !== electronVersion) {
   const chromedriverDownload = spawn(nodePath, [chromedriverDownloaderPath]);
   const mksnapshotDownload = spawn(nodePath, [mksnapshotDownloaderPath]);
   var exitStatus;
-
-  chromedriverDownload.stdout.on('data', (data) => {
-    npmlog.info(`${data}`);
-  });
-
-  chromedriverDownload.stderr.on('data', (data) => {
-    npmlog.error(`${data}`);
-  });
 
   chromedriverDownload.on('close', (code) => {
     if (code === 0) {
@@ -37,14 +29,6 @@ if (process.env.ELECTRON_CUSTOM_VERSION !== electronVersion) {
     npmlog.info(`Done re-downloading chromedriver. Status: ${exitStatus}`);
   });
 
-  mksnapshotDownload.stdout.on('data', (data) => {
-    npmlog.info(`${data}`);
-  });
-
-  mksnapshotDownload.stderr.on('data', (data) => {
-    npmlog.error(`${data}`);
-  });
-
   mksnapshotDownload.on('close', (code) => {
     if (code === 0) {
       exitStatus = "success";
@@ -54,7 +38,6 @@ if (process.env.ELECTRON_CUSTOM_VERSION !== electronVersion) {
 
     npmlog.info(`Done re-downloading mksnapshot. Status: ${exitStatus}`);
   });
-
 } else {
-  npmlog.info('env var "ELECTRON_CUSTOM_VERSION" was set correctly.\n(No need to re-download chromedriver or mksnapshot). Skipping.\n');
+  console.log('info: env var "ELECTRON_CUSTOM_VERSION" is already set correctly.\n(No need to re-download chromedriver or mksnapshot). Skipping.\n')
 }

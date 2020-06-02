@@ -50,6 +50,6 @@
     "yargs": "4.8.1"
   },
   "scripts": {
-    "postinstall": "node redownloadElectronBins.js"
+    "postinstall": "node ./redownloadElectronBins.js"
   }
 }

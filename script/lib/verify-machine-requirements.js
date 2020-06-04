@@ -1,7 +1,6 @@
 'use strict';
 
 const childProcess = require('child_process');
-const path = require('path');
 
 const CONFIG = require('../config');
 
@@ -47,7 +46,7 @@ function verifyNpm(ci) {
 }
 
 function verifyPython() {
-  const findPythonPath = require.resolve('./node-gyp-find-python')
+  const findPythonPath = require.resolve('./node-gyp-find-python');
   const findPython = childProcess.spawnSync('node', [findPythonPath], {
     env: process.env
   });
@@ -71,8 +70,10 @@ function verifyPython() {
     splitErrorOnNewlines.forEach(element => {
       // The '--python' flag won't work with the boostrap script.
       // So we won't print the suggestion to use it.
-      if (element.indexOf('--python') === -1 &&
-          element.indexOf('accepted by') === -1) {
+      if (
+        element.indexOf('--python') === -1 &&
+        element.indexOf('accepted by') === -1
+      ) {
         errorMessage = `${errorMessage}\n${element}`;
       }
     });

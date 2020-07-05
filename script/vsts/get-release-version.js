@@ -78,7 +78,6 @@ async function getReleaseVersion() {
       buildBranch.startsWith('electron-') ||
       (buildBranch === 'master' &&
         !process.env.SYSTEM_PULLREQUEST_PULLREQUESTNUMBER));
-  const SHOULD_SIGN = process.env.SHOULD_SIGN;
 
   console.log(
     `##vso[task.setvariable variable=AppName;isOutput=true]${getAppName(
@@ -90,9 +89,6 @@ async function getReleaseVersion() {
   );
   console.log(
     `##vso[task.setvariable variable=IsSignedZipBranch;isOutput=true]${isSignedZipBranch}`
-  );
-  console.log(
-    `##vso[task.setvariable variable=SHOULD_SIGN;isOutput=true]${SHOULD_SIGN}`
   );
 }
 

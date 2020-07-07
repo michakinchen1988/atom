@@ -31,11 +31,25 @@ jobs:
         displayName: Update npm
 
       - task: Cache@2
-        displayName: Cache/Restore node_modules
+        displayName: Cache node_modules
         inputs:
-          key: 'npm | "$(Agent.OS)" | package.json, script/vsts/platforms/linux.yml, **/package-lock.json, !**/node_modules/**/package-lock.json, !**/.*/**/package-lock.json'
-          path: '**/node_modules, !**/node_modules/**/node_modules'
-          cacheHitVar: CacheRestored
+          key: 'npm | "$(Agent.OS)" | package.json, package-lock.json, script/vsts/platforms/linux.yml'
+          path: 'node_modules'
+          cacheHitVar: MainNodeModulesRestored
+
+      - task: Cache@2
+        displayName: Cache script/node_modules
+        inputs:
+          key: 'npm | "$(Agent.OS)" | script/package.json, script/package-lock.json, script/vsts/platforms/linux.yml'
+          path: 'script/node_modules'
+          cacheHitVar: ScriptNodeModulesRestored
+
+      - task: Cache@2
+        displayName: Cache apm/node_modules
+        inputs:
+          key: 'npm | "$(Agent.OS)" | apm/package.json, apm/package-lock.json, script/vsts/platforms/linux.yml'
+          path: 'apm/node_modules'
+          cacheHitVar: ApmNodeModulesRestored
 
       - script: script/bootstrap
         displayName: Bootstrap build environment
@@ -45,7 +59,7 @@ jobs:
           CC: clang-5.0
           CXX: clang++-5.0
           npm_config_clang: 1
-        condition: ne(variables['CacheRestored'], 'true')
+        condition: or(ne(variables['MainNodeModulesRestored'], 'true'), ne(variables['ScriptNodeModulesRestored'], 'true'), ne(variables['ApmNodeModulesRestored'], 'true'))
 
       - script: script/lint
         displayName: Run linter

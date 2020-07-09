@@ -18,8 +18,18 @@ jobs:
       ReleaseVersion: $[ dependencies.GetReleaseVersion.outputs['Version.ReleaseVersion'] ]
       IsReleaseBranch: $[ dependencies.GetReleaseVersion.outputs['Version.IsReleaseBranch'] ]
       IsSignedZipBranch: $[ dependencies.GetReleaseVersion.outputs['Version.IsSignedZipBranch'] ]
-
+      
     steps:
+      - script: |
+          IF [%BUILD_ARCH%]==[x64] (
+            SET RunCommand= 
+          ) ELSE (
+            SET RunCommand=node script\vsts\windows-run.js
+          )
+        env:
+          BUILD_ARCH: $(buildArch)
+        displayName: Set RunCommand based on the arch
+
       - task: UsePythonVersion@0
         inputs:
           versionSpec: '2.7'
@@ -70,7 +80,7 @@ jobs:
           cacheHitVar: ApmNodeModulesRestored
 
       - script: |
-          node script\vsts\windows-run.js script\bootstrap.cmd
+          %RunCommand% script\bootstrap.cmd
         env:
           BUILD_ARCH: $(buildArch)
           CI: true
@@ -80,7 +90,8 @@ jobs:
         displayName: Bootstrap build environment
         condition: or(ne(variables['MainNodeModulesRestored'], 'true'), ne(variables['ScriptNodeModulesRestored'], 'true'), ne(variables['ApmNodeModulesRestored'], 'true'))
 
-      - script: node script\vsts\windows-run.js script\lint.cmd
+      - script: |
+          %RunCommand% script\lint.cmd
         env:
           BUILD_ARCH: $(buildArch)
         displayName: Run linter
@@ -91,21 +102,21 @@ jobs:
           IF [%IS_RELEASE_BRANCH%]==[true] (
             ECHO Creating production artifacts for release branch %BUILD_SOURCEBRANCHNAME%
             IF [%SHOULD_SIGN%]==[true] (
-             node script\vsts\windows-run.js script\build.cmd --no-bootstrap --code-sign --compress-artifacts --create-windows-installer
+             %RunCommand% script\build.cmd --no-bootstrap --code-sign --compress-artifacts --create-windows-installer
             ) ELSE (
-             node script\vsts\windows-run.js script\build.cmd --no-bootstrap --compress-artifacts --create-windows-installer
+             %RunCommand% script\build.cmd --no-bootstrap --compress-artifacts --create-windows-installer
             )
           ) ELSE (
             IF [%IS_SIGNED_ZIP_BRANCH%]==[true] (
               ECHO Creating signed CI artifacts for branch %BUILD_SOURCEBRANCHNAME%
              IF [%SHOULD_SIGN%]==[true] (
-              node script\vsts\windows-run.js script\build.cmd --no-bootstrap --code-sign --compress-artifacts
+              %RunCommand% script\build.cmd --no-bootstrap --code-sign --compress-artifacts
              ) ELSE (
-              node script\vsts\windows-run.js script\build.cmd --no-bootstrap --compress-artifacts
+              %RunCommand% script\build.cmd --no-bootstrap --compress-artifacts
              )
             ) ELSE (
               ECHO Pull request build, no code signing will be performed
-              node script\vsts\windows-run.js script\build.cmd --no-bootstrap --compress-artifacts
+              %RunCommand% script\build.cmd --no-bootstrap --compress-artifacts
             )
           )
         env:
@@ -119,7 +130,8 @@ jobs:
           npm_config_build_from_source: true
         displayName: Build Atom
 
-      - script: node script\vsts\windows-run.js script\test.cmd
+      - script: |
+          %RunCommand% script\test.cmd
         env:
           CI: true
           CI_PROVIDER: VSTS
@@ -130,7 +142,7 @@ jobs:
         condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))
 
       - script: >
-          node script\vsts\windows-run.js script\postprocess-junit-results.cmd
+          %RunCommand% script\postprocess-junit-results.cmd
           --search-folder %TEST_JUNIT_XML_ROOT% --test-results-files "**/*.xml"
         env:
           TEST_JUNIT_XML_ROOT: $(Common.TestResultsDirectory)\junit

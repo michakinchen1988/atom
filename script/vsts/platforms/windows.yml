@@ -68,6 +68,7 @@ jobs:
           node script\vsts\windows-run.js script\bootstrap.cmd
         env:
           BUILD_ARCH: $(buildArch)
+          GITHUB_TOKEN: $(GITHUB_TOKEN)
           CI: true
           CI_PROVIDER: VSTS
           NPM_BIN_PATH: "C:\\hostedtoolcache\\windows\\node\\12.13.1\\x64\\npm.cmd"

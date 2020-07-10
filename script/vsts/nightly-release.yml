@@ -61,6 +61,7 @@ jobs:
           PACKAGE_CLOUD_API_KEY: $(PACKAGE_CLOUD_API_KEY)
         displayName: Create Nightly Release
   - job: bump_dependencies
+    condition: false # Disable automated dependency bumps.
     displayName: Bump Dependencies
     timeoutInMinutes: 180
 

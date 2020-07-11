@@ -6,7 +6,8 @@ addons:
     packages:
       - libsecret-1-dev
       - libxkbfile-dev
-      - libx11-dev 
+      - libx11-dev
+      - xvfb
 
 before_install: script/bootstrap
 install: script/build --no-bootstrap

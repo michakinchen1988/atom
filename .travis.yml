@@ -8,4 +8,4 @@ addons:
       - libxkbfile-dev
 
 install: script/bootstrap
-build: script/build --no-bootstrap
+script: script/build --no-bootstrap

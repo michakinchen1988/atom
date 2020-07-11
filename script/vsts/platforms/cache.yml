@@ -38,3 +38,5 @@ steps:
          npm_package_cache | "$(Agent.OS)" | "$(buildArch)"
          npm_package_cache
       path: $(Agent.BuildDirectory)/npm_package_cache_dir
+    condition: or(ne(variables['MainNodeModulesRestored'], 'true'), ne(variables['ScriptNodeModulesRestored'], 'true'), ne(variables['ApmNodeModulesRestored'], 'true'))
+    # No need to restore network/package cache if bootstrapping will be skipped!

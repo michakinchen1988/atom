@@ -31,6 +31,7 @@ jobs:
           CI_PROVIDER: VSTS
           NPM_BIN_PATH: /usr/local/bin/npm
           npm_config_build_from_source: true
+          npm_config_cache: $(Agent.BuildDirectory)/npm_package_cache_dir
         condition: or(ne(variables['MainNodeModulesRestored'], 'true'), ne(variables['ScriptNodeModulesRestored'], 'true'), ne(variables['ApmNodeModulesRestored'], 'true'))
 
       - script: script/lint
@@ -124,6 +125,7 @@ jobs:
           CI_PROVIDER: VSTS
           NPM_BIN_PATH: /usr/local/bin/npm
           npm_config_build_from_source: true
+          npm_config_cache: $(Agent.BuildDirectory)/npm_package_cache_dir
         condition: or(ne(variables['MainNodeModulesRestored'], 'true'), ne(variables['ScriptNodeModulesRestored'], 'true'), ne(variables['ApmNodeModulesRestored'], 'true'))
 
       - task: DownloadBuildArtifacts@0

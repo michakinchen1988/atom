@@ -42,6 +42,7 @@ jobs:
           CC: clang-5.0
           CXX: clang++-5.0
           npm_config_clang: 1
+          npm_config_cache: $(Agent.BuildDirectory)/npm_package_cache_dir
         condition: or(ne(variables['MainNodeModulesRestored'], 'true'), ne(variables['ScriptNodeModulesRestored'], 'true'), ne(variables['ApmNodeModulesRestored'], 'true'))
 
       - script: script/lint

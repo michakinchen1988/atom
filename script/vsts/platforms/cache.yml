@@ -28,3 +28,13 @@ steps:
       key: 'npm | "$(Agent.OS)" | "$(buildArch)" | apm/package.json, apm/package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml'
       path: 'apm/node_modules'
       cacheHitVar: ApmNodeModulesRestored
+
+  - task: Cache@2
+    displayName: Cache npm package cache
+    inputs:
+      key: 'npm_package_cache | "$(Agent.OS)" | "$(buildArch)" | script/package-lock.json, apm/package-lock.json, package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml'
+      restoreKeys: |
+         npm_package_cache | "$(Agent.OS)" | "$(buildArch)" | script/package-lock.json, apm/package-lock.json, package-lock.json
+         npm_package_cache | "$(Agent.OS)" | "$(buildArch)"
+         npm_package_cache
+      path: $(Agent.BuildDirectory)/npm_package_cache_dir

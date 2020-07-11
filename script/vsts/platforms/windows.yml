@@ -60,6 +60,7 @@ jobs:
           CI_PROVIDER: VSTS
           NPM_BIN_PATH: "C:\\hostedtoolcache\\windows\\node\\12.13.1\\x64\\npm.cmd"
           npm_config_build_from_source: true
+          npm_config_cache: $(Agent.BuildDirectory)/npm_package_cache_dir
         displayName: Bootstrap build environment
         condition: or(ne(variables['MainNodeModulesRestored'], 'true'), ne(variables['ScriptNodeModulesRestored'], 'true'), ne(variables['ApmNodeModulesRestored'], 'true'))
 

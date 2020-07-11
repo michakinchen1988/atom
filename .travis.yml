@@ -5,7 +5,7 @@ addons:
   apt:
     packages:
       - libsecret-1-dev
-      - libxtst-dev
+      - libxkbfile-dev
 
 install: script/bootstrap
 build: script/build --no-bootstrap

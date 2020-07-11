@@ -1,7 +1,9 @@
 language: node_js
 dist: bionic
 node_js: 12.13.1
+addons:
+  apt:
+    packages: libsecret-1-dev
 
-before_install: sudo apt install libsecret-1-dev
 install: script/bootstrap
 build: script/build --no-bootstrap

@@ -1,2 +1,2 @@
-language: generic
+language: node_js
 dist: bionic

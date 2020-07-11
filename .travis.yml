@@ -1,2 +1,5 @@
 language: node_js
 dist: bionic
+
+install: script/bootstrap
+build: script/build --no-bootstrap

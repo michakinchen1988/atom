@@ -10,4 +10,4 @@ addons:
 
 before_install: script/bootstrap
 install: script/build --no-bootstrap
-script: script/test
+script: if [[ `uname` = "Linux" ]]; then TESTCMD="xvfb-run script/bootstrap"; else TESTCMD="script/bootstrap"; fi; $TESTCMD

@@ -9,3 +9,4 @@ addons:
 
 install: script/bootstrap
 script: script/build --no-bootstrap
+after_script: script/test

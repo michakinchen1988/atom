@@ -22,7 +22,7 @@ jobs:
         inputs:
           keyfile: 'package.json, script/vsts/platforms/macos.yml, **/package-lock.json, !**/node_modules/**/package-lock.json, !**/.*/**/package-lock.json'
           targetfolder: '**/node_modules, !**/node_modules/**/node_modules'
-          vstsFeed: 'bae1bc26-220d-43c7-a955-4de039370de2'
+          vstsFeed: 'c4ca4bc0-0579-40b1-ac88-906ed61131cd'
 
       - script: script/bootstrap
         displayName: Bootstrap build environment
@@ -39,7 +39,7 @@ jobs:
         inputs:
           keyfile: 'package.json, script/vsts/platforms/macos.yml, **/package-lock.json, !**/node_modules/**/package-lock.json, !**/.*/**/package-lock.json'
           targetfolder: '**/node_modules, !**/node_modules/**/node_modules'
-          vstsFeed: 'bae1bc26-220d-43c7-a955-4de039370de2'
+          vstsFeed: 'c4ca4bc0-0579-40b1-ac88-906ed61131cd'
 
       - script: script/lint
         displayName: Run linter
@@ -121,7 +121,7 @@ jobs:
         inputs:
           keyfile: 'package.json, script/vsts/platforms/macos.yml, **/package-lock.json, !**/node_modules/**/package-lock.json, !**/.*/**/package-lock.json'
           targetfolder: '**/node_modules, !**/node_modules/**/node_modules'
-          vstsFeed: 'bae1bc26-220d-43c7-a955-4de039370de2'
+          vstsFeed: 'c4ca4bc0-0579-40b1-ac88-906ed61131cd'
 
       # The artifact caching task does not work on forks, so we need to
       # bootstrap again for pull requests coming from forked repositories.

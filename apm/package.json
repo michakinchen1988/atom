@@ -6,6 +6,6 @@
     "url": "https://github.com/atom/atom.git"
   },
   "dependencies": {
-    "atom-package-manager": "github:DeeDeeG/apm#support_visual_studio_2017_and_2019"
+    "atom-package-manager": "github:DeeDeeG/apm#VS2017-and-2019-bump-keytar"
   }
 }

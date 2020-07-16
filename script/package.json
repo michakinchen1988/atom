@@ -15,7 +15,7 @@
     "electron-chromedriver": "^9.0.0",
     "electron-link": "0.4.1",
     "electron-mksnapshot": "^9.0.2",
-    "electron-packager": "12.2.0",
+    "electron-packager": "^15.0.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.2.0",
     "eslint-config-standard": "^12.0.0",

@@ -16,9 +16,6 @@ steps:
     condition: eq(variables['Agent.OS'], 'Linux')
 
   # Common
-  - script: npm install --global npm@6.12.1
-    displayName: Update npm
-
   - pwsh: |
       if ($env:AGENT_OS -eq "Windows_NT") {
         $env:BUILD_ARCH=$env:buildArch

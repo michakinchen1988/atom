@@ -15,7 +15,7 @@ steps:
     displayName: Start Xvfb
     condition: eq(variables['Agent.OS'], 'Linux')
 
-  # Common
+  # Windows Specific
   - pwsh: |
       if ($env:AGENT_OS -eq "Windows_NT") {
         $env:BUILD_ARCH=$env:buildArch
@@ -24,7 +24,6 @@ steps:
       echo BUILD_ARCH: $env:BUILD_ARCH
     displayName: Setting globally used env variables
 
-  # Windows Specific
   - script: |
       npm install --global --production windows-build-tools@4.0
     displayName: Install windows build tools

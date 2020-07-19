@@ -5,14 +5,21 @@ steps:
     displayName: Start Xvfb
     condition: eq(variables['Agent.OS'], 'Linux')
 
-  # macOS Specific
-    # TODO: Use the macOS 10.15 image instead, and drop these macOS-specific steps
+  # Common
   - task: NodeTool@0
     inputs:
-      versionSpec: 12.x
-    displayName: Install Node.js 12.x
-    condition: eq(variables['Agent.OS'], 'Darwin')
-    # The Microsoft-hosted Agent for macOS 10.14 comes with Node 6.17.0!
+      versionSpec: 12.16.x
+    displayName: Install Node.js 12.16.x
+    # Most-recent version of Node 12 we can use without running into this:
+    # https://github.com/babel/babel/issues/11216
+    # Todo: Upgrade babel to 7.8.7 or newer, everywhere in Atom, so we can use newer Node.
+    #
+    # Happens due to: ECMAScript Modules feature in Node
+    # https://github.com/nodejs/node/pull/29866
+    #
+    # https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V12.md#12.17.0
+    # https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V13.md#13.2.0
+    # https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V14.md#14.0.0
 
   # Windows Specific
   - pwsh: |

@@ -6,6 +6,14 @@ steps:
     condition: eq(variables['Agent.OS'], 'Linux')
 
   # macOS Specific
+    # TODO: Use the macOS 10.15 image instead, and drop these macOS-specific steps
+  - task: NodeTool@0
+    inputs:
+      versionSpec: 12.x
+    displayName: Install Node.js 12.x
+    condition: eq(variables['Agent.OS'], 'Darwin')
+    # The Microsoft-hosted Agent for macOS 10.14 comes with Node 6.17.0!
+
   - script: npm install --global npm@latest
     displayName: Update npm
     condition: eq(variables['Agent.OS'], 'Darwin')

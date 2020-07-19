@@ -15,7 +15,7 @@ function verifyNode() {
   const fullVersion = process.versions.node;
   const majorVersion = fullVersion.split('.')[0];
   const minorVersion = fullVersion.split('.')[1];
-  if (majorVersion === 10 && minorVersion >= 12 || majorVersion >= 11) {
+  if ((majorVersion === 10 && minorVersion >= 12) || majorVersion >= 11) {
     console.log(`Node:\tv${fullVersion}`);
   } else {
     throw new Error(

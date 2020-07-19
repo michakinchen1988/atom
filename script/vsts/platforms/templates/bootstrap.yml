@@ -11,9 +11,6 @@ steps:
       }
       if ($env:AGENT_OS -eq "Linux") {
         $env:NPM_BIN_PATH="/usr/local/bin/npm"
-        $env:CC=clang
-        $env:CXX=clang++
-        $env:npm_config_clang=1
       }
 
       # Bootstrap

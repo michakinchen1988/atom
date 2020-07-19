@@ -16,9 +16,6 @@ steps:
         $AC_PASSWORD=$env:AC_PASSWORD
       }
       if ($env:AGENT_OS -eq "Linux") {
-        $env:CC=clang
-        $env:CXX=clang++
-        $env:npm_config_clang=1
         $env:LinuxArgs="--create-debian-package --create-rpm-package"
         $env:SHOULD_SIGN="false"
       }

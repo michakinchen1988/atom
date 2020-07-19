@@ -5,6 +5,12 @@ steps:
     displayName: Start Xvfb
     condition: eq(variables['Agent.OS'], 'Linux')
 
+  # macOS Specific
+  - script: npm install --global npm@latest
+    displayName: Update npm
+    condition: eq(variables['Agent.OS'], 'Darwin')
+    # The Microsoft-hosted Agent for macOS 10.14 comes with npm 3.10.10!
+
   # Windows Specific
   - pwsh: |
       if ($env:AGENT_OS -eq "Windows_NT") {

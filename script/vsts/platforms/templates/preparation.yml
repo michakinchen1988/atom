@@ -21,7 +21,10 @@ steps:
     # https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V13.md#13.2.0
     # https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V14.md#14.0.0
 
-  - script: /usr/local/bin/npm install --global npm@latest
+  - script: |
+      which -a npm
+      /usr/local/bin/npm install --global npm@latest
+      which -a npm
     displayName: Update npm
     condition: eq(variables['Agent.OS'], 'Darwin')
     # The Microsoft-hosted Agent for macOS 10.14 comes with npm 3.10.10!

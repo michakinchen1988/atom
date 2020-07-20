@@ -23,7 +23,7 @@ steps:
 
   - script: |
       which -a npm
-      /usr/local/bin/npm install --global npm@latest
+      npm install --global npm@latest
       which -a npm
     displayName: Update npm
     condition: eq(variables['Agent.OS'], 'Darwin')

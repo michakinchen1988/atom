@@ -31,6 +31,7 @@ steps:
       /Users/runner/hostedtoolcache/node/12.16.3/x64/bin/npm --version
       /usr/local/bin/npm --version
       npm --version
+      echo $PATH
     displayName: Update npm
     condition: eq(variables['Agent.OS'], 'Darwin')
     # The Microsoft-hosted Agent for macOS 10.14 comes with npm 3.10.10!

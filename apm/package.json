@@ -6,6 +6,6 @@
     "url": "https://github.com/atom/atom.git"
   },
   "dependencies": {
-    "atom-package-manager": "github:DeeDeeG/apm#allow-no-global-style-install"
+    "atom-package-manager": "github:DeeDeeG/apm#allow-no-global-style-install-CI"
   }
 }

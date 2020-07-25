@@ -25,6 +25,10 @@ const argv = yargs
     'Path to the folder where all release assets are stored'
   )
   .describe(
+    'upload-to-s3',
+    'If set to "skip", skips uploading assets to Amazon S3 (assets are uploaded to S3 by default, if not set)'
+  )
+  .describe(
     's3-path',
     'Indicates the S3 path in which the assets should be uploaded'
   )
@@ -70,13 +74,15 @@ async function uploadArtifacts() {
     } release assets for ${releaseVersion} to S3 under '${bucketPath}'`
   );
 
-  await uploadToS3(
-    process.env.ATOM_RELEASES_S3_KEY,
-    process.env.ATOM_RELEASES_S3_SECRET,
-    process.env.ATOM_RELEASES_S3_BUCKET,
-    bucketPath,
-    assets
-  );
+  if (argv.uploadToS3 !== 'skip') {
+    await uploadToS3(
+      process.env.ATOM_RELEASES_S3_KEY,
+      process.env.ATOM_RELEASES_S3_SECRET,
+      process.env.ATOM_RELEASES_S3_BUCKET,
+      bucketPath,
+      assets
+    );
+  }
 
   if (argv.linuxRepoName) {
     await uploadLinuxPackages(

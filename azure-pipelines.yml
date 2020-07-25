@@ -20,5 +20,20 @@ steps:
 
 - script: |
     echo 'vars: "$string" "$string2" "$string3"'
-  displayName: 'Run a multi-line script'
-  env: { string: $(string), string2: ${{ variables.string2 }}, string3: variables.string3 }
+  displayName: 'Run a one-line script'
+  env: { string: $(string), string3: variables.string3 }
+
+- script: |
+    echo vars: "$string" "$string2" "$string3"
+  displayName: 'Run a one-line script'
+  env: { string: $(string), string3: variables.string3 }
+
+- script: |
+    echo 'vars: $string $string2 $string3'
+  displayName: 'Run a one-line script'
+  env: { string: $(string), string3: variables.string3 }
+
+- script: |
+    echo vars: $string $string2 $string3
+  displayName: 'Run a one-line script'
+  env: { string: $(string), string3: variables.string3 }

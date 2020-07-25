@@ -57,3 +57,7 @@ steps:
 - script: |
     echo vars: $string $string2 $string3
   displayName: 'Run a one-line script'
+
+- script: |
+    echo vars: SET: $SET, SET_SECRET: $SET_SECRET, notset: $notset
+  displayName: 'SET, SET_SECRET and notset'

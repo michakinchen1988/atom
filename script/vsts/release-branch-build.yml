@@ -60,7 +60,7 @@ jobs:
         displayName: Download Release Artifacts
 
       - script: |
-          node $(Build.SourcesDirectory)\script\vsts\upload-artifacts.js --create-github-release --assets-path "$(System.ArtifactsDirectory)" --linux-repo-name "atom-staging"
+          node $(Build.SourcesDirectory)\script\vsts\upload-artifacts.js --create-github-release --assets-path "$(System.ArtifactsDirectory)" --linux-repo-name "atom-staging" --upload-to-s3 "skip"
         env:
           GITHUB_TOKEN: $(GITHUB_TOKEN)
           ATOM_RELEASE_VERSION: $(ReleaseVersion)
@@ -75,7 +75,7 @@ jobs:
         condition: and(succeeded(), eq(variables['Atom.AutoDraftRelease'], 'true'), eq(variables['IsReleaseBranch'], 'true'))
 
       - script: |
-          node $(Build.SourcesDirectory)\script\vsts\upload-artifacts.js --assets-path "$(System.ArtifactsDirectory)" --s3-path "vsts-artifacts/$(Build.BuildId)/"
+          node $(Build.SourcesDirectory)\script\vsts\upload-artifacts.js --assets-path "$(System.ArtifactsDirectory)" --s3-path "vsts-artifacts/$(Build.BuildId)/" --upload-to-s3 "skip"
         env:
           ATOM_RELEASE_VERSION: $(ReleaseVersion)
           ATOM_RELEASES_S3_KEY: $(ATOM_RELEASES_S3_KEY)

@@ -37,3 +37,23 @@ steps:
     echo vars: $string $string2 $string3
   displayName: 'Run a one-line script'
   env: { string: $(string), string3: variables.string3 }
+
+- script: |
+    echo Below is with no env
+  displayName: 'Below is with no env'
+
+- script: |
+    echo 'vars: "$string" "$string2" "$string3"'
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo 'vars: $string $string2 $string3'
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo vars: "$string" "$string2" "$string3"
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo vars: $string $string2 $string3
+  displayName: 'Run a one-line script'

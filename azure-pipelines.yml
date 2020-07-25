@@ -19,11 +19,6 @@ steps:
   displayName: 'Run a multi-line script'
 
 - script: |
-    echo 'vars: "$string1" "$string2" "$string3"'
+    echo 'vars: "$string" "$string2" "$string3"'
   displayName: 'Run a multi-line script'
-  env: { string: "$(string)", string3: "$[string3]" }
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  env: { string: $(string), string3: variables.string3 }

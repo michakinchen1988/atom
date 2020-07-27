@@ -9,7 +9,7 @@ parameters:
 
 steps:
       - task: 1ESLighthouseEng.PipelineArtifactCaching.RestoreCacheV1.RestoreCache@1
-        displayName: Restore node_modules cache
+        displayName: Restore node_modules cache (Windows)
         inputs:
           keyfile: 'package.json, script/vsts/platforms/${{ parameters.OS }}.yml, **/package-lock.json, !**/node_modules/**/package-lock.json, !**/.*/**/package-lock.json, script/vsts/${{ variables.buildArch }}-cache-key'
           targetfolder: '**/node_modules, !**/node_modules/**/node_modules'

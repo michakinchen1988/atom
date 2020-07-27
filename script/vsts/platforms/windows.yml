@@ -45,7 +45,7 @@ jobs:
 
       - script: |
           cd script\vsts
-          npm install
+          npm ci
         displayName: Install Windows build dependencies
 
       - task: 1ESLighthouseEng.PipelineArtifactCaching.RestoreCacheV1.RestoreCache@1

@@ -28,4 +28,20 @@ steps:
       GITHUB_TOKEN: $(GITHUB_TOKEN)
       CI: true
       CI_PROVIDER: VSTS
-    condition: or(ne(variables['MainNodeModulesRestored'], 'true'), ne(variables['ScriptNodeModulesRestored'], 'true'), ne(variables['ApmNodeModulesRestored'], 'true'))
+    condition: ne(variables['CacheRestored'], 'true')
+
+  - task: 1ESLighthouseEng.PipelineArtifactCaching.SaveCacheV1.SaveCache@1
+    displayName: Save node_modules cache
+    inputs:
+      keyfile: 'package.json, script/vsts/platforms/${{ parameters.OS }}.yml, **/package-lock.json, !**/node_modules/**/package-lock.json, !**/.*/**/package-lock.json, script/vsts/${{ variables.buildArch }}-cache-key'
+      targetfolder: '**/node_modules, !**/node_modules/**/node_modules'
+      vstsFeed: 'c4ca4bc0-0579-40b1-ac88-906ed61131cd'
+    condition: and( ne(variables['CacheRestored'], 'true'), eq(variables['Agent.OS'], 'Windows_NT') )
+
+  - task: 1ESLighthouseEng.PipelineArtifactCaching.SaveCacheV1.SaveCache@1
+    displayName: Save node_modules cache
+    inputs:
+      keyfile: 'package.json, script/vsts/platforms/${{ parameters.OS }}.yml, **/package-lock.json, !**/node_modules/**/package-lock.json, !**/.*/**/package-lock.json'
+      targetfolder: '**/node_modules, !**/node_modules/**/node_modules'
+      vstsFeed: 'c4ca4bc0-0579-40b1-ac88-906ed61131cd'
+    condition: and( ne(variables['CacheRestored'], 'true'), ne(variables['Agent.OS'], 'Windows_NT') )

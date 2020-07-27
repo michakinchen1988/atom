@@ -8,32 +8,18 @@ parameters:
       - macos
 
 steps:
-  - task: Cache@2
-    displayName: Cache node_modules
-    inputs:
-      key: 'npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | package.json, package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml'
-      restoreKeys: |
-         npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | package.json, package-lock.json
-         npm | "$(Agent.OS)" | "$(BUILD_ARCH)"
-      path: 'node_modules'
-      cacheHitVar: MainNodeModulesRestored
+      - task: 1ESLighthouseEng.PipelineArtifactCaching.RestoreCacheV1.RestoreCache@1
+        displayName: Restore node_modules cache
+        inputs:
+          keyfile: 'package.json, script/vsts/platforms/${{ parameters.OS }}.yml, **/package-lock.json, !**/node_modules/**/package-lock.json, !**/.*/**/package-lock.json, script/vsts/${{ variables.buildArch }}-cache-key'
+          targetfolder: '**/node_modules, !**/node_modules/**/node_modules'
+          vstsFeed: 'c4ca4bc0-0579-40b1-ac88-906ed61131cd'
+        condition: eq(variables['Agent.OS'], 'Windows_NT')
 
-  - task: Cache@2
-    displayName: Cache script/node_modules
-    inputs:
-      key: 'npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | script/package.json, script/package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml'
-      restoreKeys: |
-         npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | script/package.json, script/package-lock.json
-         npm | "$(Agent.OS)" | "$(BUILD_ARCH)"
-      path: 'script/node_modules'
-      cacheHitVar: ScriptNodeModulesRestored
-
-  - task: Cache@2
-    displayName: Cache apm/node_modules
-    inputs:
-      key: 'npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | apm/package.json, apm/package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml'
-      restoreKeys: |
-         npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | apm/package.json, apm/package-lock.json
-         npm | "$(Agent.OS)" | "$(BUILD_ARCH)"
-      path: 'apm/node_modules'
-      cacheHitVar: ApmNodeModulesRestored
+      - task: 1ESLighthouseEng.PipelineArtifactCaching.RestoreCacheV1.RestoreCache@1
+        displayName: Restore node_modules cache
+        inputs:
+          keyfile: 'package.json, script/vsts/platforms/${{ parameters.OS }}.yml, **/package-lock.json, !**/node_modules/**/package-lock.json, !**/.*/**/package-lock.json'
+          targetfolder: '**/node_modules, !**/node_modules/**/node_modules'
+          vstsFeed: 'c4ca4bc0-0579-40b1-ac88-906ed61131cd'
+        condition: ne(variables['Agent.OS'], 'Windows_NT')

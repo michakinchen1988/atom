@@ -1,7 +1,7 @@
 trigger: none # No CI builds, only PR builds
 
 jobs:
-  - job: GetReleaseVersion (macOS Mojave)
+  - job: GetReleaseVersion_macOS_Mojave
     pool:
       vmImage: 'macos-10.14'
     steps:
@@ -17,7 +17,7 @@ jobs:
           REPO_OWNER: $(REPO_OWNER)
           NIGHTLY_RELEASE_REPO: $(NIGHTLY_RELEASE_REPO)
 
-  - job: GetReleaseVersion (macOS Catalina)
+  - job: GetReleaseVersion_macOS_Catalina
     pool:
       vmImage: 'macos-10.15'
     steps:
@@ -33,7 +33,7 @@ jobs:
           REPO_OWNER: $(REPO_OWNER)
           NIGHTLY_RELEASE_REPO: $(NIGHTLY_RELEASE_REPO)
 
-  - job: GetReleaseVersion (Ubuntu Xenial)
+  - job: GetReleaseVersion_Ubuntu_Xenial
     pool:
       vmImage: 'ubuntu-16.04'
     steps:
@@ -49,7 +49,7 @@ jobs:
           REPO_OWNER: $(REPO_OWNER)
           NIGHTLY_RELEASE_REPO: $(NIGHTLY_RELEASE_REPO)
 
-  - job: GetReleaseVersion (Ubuntu Bionic)
+  - job: GetReleaseVersion_Ubuntu_Bionic
     pool:
       vmImage: 'ubuntu-18.04'
     steps:
@@ -65,7 +65,7 @@ jobs:
           REPO_OWNER: $(REPO_OWNER)
           NIGHTLY_RELEASE_REPO: $(NIGHTLY_RELEASE_REPO)
 
-  - job: GetReleaseVersion (Ubuntu Focal)
+  - job: GetReleaseVersion_Ubuntu_Focal
     pool:
       vmImage: 'ubuntu-20.04'
     steps:
@@ -81,7 +81,7 @@ jobs:
           REPO_OWNER: $(REPO_OWNER)
           NIGHTLY_RELEASE_REPO: $(NIGHTLY_RELEASE_REPO)
 
-  - job: GetReleaseVersion (Windows Server 2016 with Visual Studio 2017)
+  - job: GetReleaseVersion_Windows_Server_2016_with_Visual_Studio_2017
     pool:
       vmImage: 'vs2017-win2016'
     steps:
@@ -97,7 +97,7 @@ jobs:
           REPO_OWNER: $(REPO_OWNER)
           NIGHTLY_RELEASE_REPO: $(NIGHTLY_RELEASE_REPO)
 
-  - job: GetReleaseVersion (Windows Server 2019 with Visual Studio 2019)
+  - job: GetReleaseVersion_Windows_Server_2019_with_Visual_Studio_2019
     pool:
       vmImage: 'windows-2019'
     steps:

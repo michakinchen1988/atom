@@ -7,7 +7,7 @@ pr: none # no PR triggers
 jobs:
   - job: GetReleaseVersion
     pool:
-      vmImage: 'ubuntu-20.04'
+      vmImage: 'macos-latest'
     steps:
       # This has to be done separately because VSTS inexplicably
       # exits the script block after `npm ci` completes.
@@ -28,7 +28,7 @@ jobs:
 
   - job: UploadArtifacts
     pool:
-      vmImage: 'ubuntu-20.04'
+      vmImage: 'macos-latest'
 
     dependsOn:
       - GetReleaseVersion

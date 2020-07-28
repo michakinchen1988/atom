@@ -1,7 +1,7 @@
 trigger: none # No CI builds, only PR builds
 
 jobs:
-  - job: GetReleaseVersion
+  - job: GetReleaseVersion (macOS Mojave)
     pool:
       vmImage: 'macos-10.14'
     steps:
@@ -17,7 +17,98 @@ jobs:
           REPO_OWNER: $(REPO_OWNER)
           NIGHTLY_RELEASE_REPO: $(NIGHTLY_RELEASE_REPO)
 
-  # Import OS-specific build definitions
-  - template: platforms/windows.yml
-  - template: platforms/macos.yml
-  - template: platforms/linux.yml
+  - job: GetReleaseVersion (macOS Catalina)
+    pool:
+      vmImage: 'macos-10.15'
+    steps:
+      # This has to be done separately because VSTS inexplicably
+      # exits the script block after `npm ci` completes.
+      - script: |
+          cd script/vsts
+          npm ci
+        displayName: npm ci
+      - script: node script/vsts/get-release-version.js
+        name: Version
+        env:
+          REPO_OWNER: $(REPO_OWNER)
+          NIGHTLY_RELEASE_REPO: $(NIGHTLY_RELEASE_REPO)
+
+  - job: GetReleaseVersion (Ubuntu Xenial)
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+      # This has to be done separately because VSTS inexplicably
+      # exits the script block after `npm ci` completes.
+      - script: |
+          cd script/vsts
+          npm ci
+        displayName: npm ci
+      - script: node script/vsts/get-release-version.js
+        name: Version
+        env:
+          REPO_OWNER: $(REPO_OWNER)
+          NIGHTLY_RELEASE_REPO: $(NIGHTLY_RELEASE_REPO)
+
+  - job: GetReleaseVersion (Ubuntu Bionic)
+    pool:
+      vmImage: 'ubuntu-18.04'
+    steps:
+      # This has to be done separately because VSTS inexplicably
+      # exits the script block after `npm ci` completes.
+      - script: |
+          cd script/vsts
+          npm ci
+        displayName: npm ci
+      - script: node script/vsts/get-release-version.js
+        name: Version
+        env:
+          REPO_OWNER: $(REPO_OWNER)
+          NIGHTLY_RELEASE_REPO: $(NIGHTLY_RELEASE_REPO)
+
+  - job: GetReleaseVersion (Ubuntu Focal)
+    pool:
+      vmImage: 'ubuntu-20.04'
+    steps:
+      # This has to be done separately because VSTS inexplicably
+      # exits the script block after `npm ci` completes.
+      - script: |
+          cd script/vsts
+          npm ci
+        displayName: npm ci
+      - script: node script/vsts/get-release-version.js
+        name: Version
+        env:
+          REPO_OWNER: $(REPO_OWNER)
+          NIGHTLY_RELEASE_REPO: $(NIGHTLY_RELEASE_REPO)
+
+  - job: GetReleaseVersion (Windows Server 2016 with Visual Studio 2017)
+    pool:
+      vmImage: 'vs2017-win2016'
+    steps:
+      # This has to be done separately because VSTS inexplicably
+      # exits the script block after `npm ci` completes.
+      - script: |
+          cd script/vsts
+          npm ci
+        displayName: npm ci
+      - script: node script/vsts/get-release-version.js
+        name: Version
+        env:
+          REPO_OWNER: $(REPO_OWNER)
+          NIGHTLY_RELEASE_REPO: $(NIGHTLY_RELEASE_REPO)
+
+  - job: GetReleaseVersion (Windows Server 2019 with Visual Studio 2019)
+    pool:
+      vmImage: 'windows-2019'
+    steps:
+      # This has to be done separately because VSTS inexplicably
+      # exits the script block after `npm ci` completes.
+      - script: |
+          cd script/vsts
+          npm ci
+        displayName: npm ci
+      - script: node script/vsts/get-release-version.js
+        name: Version
+        env:
+          REPO_OWNER: $(REPO_OWNER)
+          NIGHTLY_RELEASE_REPO: $(NIGHTLY_RELEASE_REPO)

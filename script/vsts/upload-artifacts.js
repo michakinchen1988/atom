@@ -64,27 +64,39 @@ async function uploadArtifacts() {
     return;
   }
 
-  console.log(
-    `Uploading ${
-      assets.length
-    } release assets for ${releaseVersion} to S3 under '${bucketPath}'`
-  );
+  if (process.env.SKIP_UPLOADING_TO_PAID_CLOUDS !== 'true') {
+    console.log(
+      `Uploading ${
+        assets.length
+      } release assets for ${releaseVersion} to S3 under '${bucketPath}'`
+    );
 
-  await uploadToS3(
-    process.env.ATOM_RELEASES_S3_KEY,
-    process.env.ATOM_RELEASES_S3_SECRET,
-    process.env.ATOM_RELEASES_S3_BUCKET,
-    bucketPath,
-    assets
-  );
-
-  if (argv.linuxRepoName) {
-    await uploadLinuxPackages(
-      argv.linuxRepoName,
-      process.env.PACKAGE_CLOUD_API_KEY,
-      releaseVersion,
+    await uploadToS3(
+      process.env.ATOM_RELEASES_S3_KEY,
+      process.env.ATOM_RELEASES_S3_SECRET,
+      process.env.ATOM_RELEASES_S3_BUCKET,
+      bucketPath,
       assets
     );
+  } else {
+    console.log(
+      '\nEnvironment variable "SKIP_UPLOADING_TO_PAID_CLOUDS" is set to "true", skipping S3 upload.'
+    );
+  }
+
+  if (argv.linuxRepoName) {
+    if (process.env.SKIP_UPLOADING_TO_PAID_CLOUDS !== 'true') {
+      await uploadLinuxPackages(
+        argv.linuxRepoName,
+        process.env.PACKAGE_CLOUD_API_KEY,
+        releaseVersion,
+        assets
+      );
+    } else {
+      console.log(
+        '\nEnvironment variable "SKIP_UPLOADING_TO_PAID_CLOUDS" is set to "true", skipping Linux package upload.'
+      );
+    }
   } else {
     console.log(
       '\nNo Linux package repo name specified, skipping Linux package upload.'

@@ -11,7 +11,7 @@ steps:
   - task: Cache@2
     displayName: Cache node_modules
     inputs:
-      key: 'npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | package.json, package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml'
+      key: 'npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | package.json, package-lock.json, script/vsts/platforms/templates/preparation.yml'
       restoreKeys: |
          npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | package.json, package-lock.json
          npm | "$(Agent.OS)" | "$(BUILD_ARCH)"
@@ -21,7 +21,7 @@ steps:
   - task: Cache@2
     displayName: Cache script/node_modules
     inputs:
-      key: 'npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | script/package.json, script/package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml'
+      key: 'npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | script/package.json, script/package-lock.json, script/vsts/platforms/templates/preparation.yml'
       restoreKeys: |
          npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | script/package.json, script/package-lock.json
          npm | "$(Agent.OS)" | "$(BUILD_ARCH)"
@@ -31,7 +31,7 @@ steps:
   - task: Cache@2
     displayName: Cache apm/node_modules
     inputs:
-      key: 'npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | apm/package.json, apm/package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml'
+      key: 'npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | apm/package.json, apm/package-lock.json, script/vsts/platforms/templates/preparation.yml'
       restoreKeys: |
          npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | apm/package.json, apm/package-lock.json
          npm | "$(Agent.OS)" | "$(BUILD_ARCH)"

@@ -82,4 +82,4 @@ steps:
       ARTIFACT_STAGING_DIR: $(Build.ArtifactStagingDirectory)
       BUILD_ID: $(Build.BuildId)
     displayName: Upload crash reports to S3 on release branch
-    condition: and(failed(), ne(variables['ATOM_RELEASES_S3_KEY'], ''), eq(variables['Agent.OS'], 'Windows_NT'))
+    condition: and(failed(), ne(variables['ATOM_RELEASES_S3_KEY'], ''), ne(variables['SKIP_UPLOADING_TO_PAID_CLOUDS'], 'true'), eq(variables['Agent.OS'], 'Windows_NT'))

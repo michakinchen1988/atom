@@ -1,4 +1,5 @@
 jobs: 
+  # Import "GetReleaseVersion" job definition
   - template: platforms/templates/get-release-version.yml
 
   # Import OS-specific build definitions

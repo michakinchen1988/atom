@@ -1,6 +1,6 @@
 trigger: none # No CI builds, only PR builds
 
-- template: platforms/templates/get-release-version.yml
+template: platforms/templates/get-release-version.yml
 
   # Import OS-specific build definitions
   - template: platforms/windows.yml

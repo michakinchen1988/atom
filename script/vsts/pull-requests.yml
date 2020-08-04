@@ -1,6 +1,6 @@
 trigger: none # No CI builds, only PR builds
 
-jobs: 
+jobs:
   # Import "GetReleaseVersion" job definition
   - template: platforms/templates/get-release-version.yml
 

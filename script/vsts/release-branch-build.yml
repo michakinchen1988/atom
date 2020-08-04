@@ -4,7 +4,7 @@ trigger:
   - electron-*
 pr: none # no PR triggers
 
-jobs: 
+jobs:
   # Import "GetReleaseVersion" job definition
   - template: platforms/templates/get-release-version.yml
 

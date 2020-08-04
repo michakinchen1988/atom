@@ -1,4 +1,6 @@
-job: GetReleaseVersion
+jobs:
+
+- job: GetReleaseVersion
   pool:
     vmImage: 'ubuntu-latest'
   steps:

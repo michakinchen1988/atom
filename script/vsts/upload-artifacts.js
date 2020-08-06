@@ -16,6 +16,10 @@ const REPO_OWNER = process.env.REPO_OWNER;
 const MAIN_REPO = process.env.MAIN_REPO;
 const NIGHTLY_RELEASE_REPO = process.env.NIGHTLY_RELEASE_REPO;
 
+// Compose an array of services to skip uploading to,
+// from environment variable SKIP_UPLOADING_TO (must be a comma-separated list)
+const skipUploadingTo = process.env.SKIP_UPLOADING_TO.split(/\s*(?:,|$)\s*/);
+
 const yargs = require('yargs');
 const argv = yargs
   .usage('Usage: $0 [options]')
@@ -64,7 +68,7 @@ async function uploadArtifacts() {
     return;
   }
 
-  if (process.env.SKIP_UPLOADING_TO_PAID_CLOUDS !== 'true') {
+  if (skipUploadingTo.indexOf('s3') === -1) {
     console.log(
       `Uploading ${
         assets.length
@@ -80,12 +84,12 @@ async function uploadArtifacts() {
     );
   } else {
     console.log(
-      '\nEnvironment variable "SKIP_UPLOADING_TO_PAID_CLOUDS" is set to "true", skipping S3 upload.'
+      '\nEnvironment variable "SKIP_UPLOADING_TO" contains "s3", skipping S3 upload.'
     );
   }
 
   if (argv.linuxRepoName) {
-    if (process.env.SKIP_UPLOADING_TO_PAID_CLOUDS !== 'true') {
+    if (skipUploadingTo.indexOf('packagecloud') === -1) {
       await uploadLinuxPackages(
         argv.linuxRepoName,
         process.env.PACKAGE_CLOUD_API_KEY,
@@ -94,7 +98,7 @@ async function uploadArtifacts() {
       );
     } else {
       console.log(
-        '\nEnvironment variable "SKIP_UPLOADING_TO_PAID_CLOUDS" is set to "true", skipping Linux package upload.'
+        '\nEnvironment variable "SKIP_UPLOADING_TO" contains "packagecloud", skipping Linux package upload.'
       );
     }
   } else {

@@ -18,7 +18,7 @@ const NIGHTLY_RELEASE_REPO = process.env.NIGHTLY_RELEASE_REPO;
 
 // Compose an array of services to skip uploading to,
 // from environment variable SKIP_UPLOADING_TO (must be a comma-separated list)
-const skipUploadingTo = process.env.SKIP_UPLOADING_TO.split(/\s*(?:,|$)\s*/);
+const skipUploadingTo = process.env.SKIP_UPLOADING_TO.split(',');
 
 const yargs = require('yargs');
 const argv = yargs

@@ -19,7 +19,7 @@ const argv = yargs
 
 // Compose an array of services to skip uploading to,
 // from environment variable SKIP_UPLOADING_TO (must be a comma-separated list)
-const skipUploadingTo = process.env.SKIP_UPLOADING_TO.split(/\s*(?:,|$)\s*/);
+const skipUploadingTo = process.env.SKIP_UPLOADING_TO.split(',');
 
 async function uploadCrashReports() {
   const crashesPath = argv.crashReportPath;

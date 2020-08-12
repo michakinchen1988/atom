@@ -18,8 +18,9 @@ jobs:
         cd script/vsts
         npm ci
         echo "NightlyFlag is" ${{ parameters.NightlyFlag }}
-        echo "REPO_OWNER is ${REPO_OWNER}"
-        echo "NIGHTLY_RELEASE_REPO is ${NIGHTLY_RELEASE_REPO}"
+        echo "REPO_OWNER is $REPO_OWNER"
+        echo "NIGHTLY_RELEASE_REPO is $NIGHTLY_RELEASE_REPO"
+        env
       displayName: npm ci
     - script: node script/vsts/get-release-version.js ${{ parameters.NightlyFlag }}
       name: Version

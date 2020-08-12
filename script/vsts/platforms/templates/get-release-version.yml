@@ -2,7 +2,7 @@ parameters:
   - name: NightlyFlag
     type: string
     values:
-      - ""
+      - ~
       - --no
     default: ''
 

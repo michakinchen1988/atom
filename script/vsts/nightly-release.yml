@@ -10,6 +10,12 @@ jobs:
   - template: platforms/macos.yml
   - template: platforms/linux.yml
 
+  - job: Debug_echo_the_env_and_stuff
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:
+      - script: env
 
   - job: Release
     pool:

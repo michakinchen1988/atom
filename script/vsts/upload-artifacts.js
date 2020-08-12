@@ -16,10 +16,6 @@ const REPO_OWNER = process.env.REPO_OWNER;
 const MAIN_REPO = process.env.MAIN_REPO;
 const NIGHTLY_RELEASE_REPO = process.env.NIGHTLY_RELEASE_REPO;
 
-// Compose an array of services to skip uploading to,
-// from environment variable SKIP_UPLOADING_TO (must be a comma-separated list)
-const skipUploadingTo = process.env.SKIP_UPLOADING_TO.split(',')).map(s => s.trim());
-
 const yargs = require('yargs');
 const argv = yargs
   .usage('Usage: $0 [options]')
@@ -68,7 +64,7 @@ async function uploadArtifacts() {
     return;
   }
 
-  if (skipUploadingTo.indexOf('s3') === -1) {
+  if ( (process.env.ATOM_RELEASES_S3_KEY && process.env.ATOM_RELEASES_S3_KEY !== "$(ATOM_RELEASES_S3_KEY)") && (process.env.ATOM_RELEASES_S3_SECRET && process.env.ATOM_RELEASES_S3_SECRET !== "$(ATOM_RELEASES_S3_SECRET)") ) {
     console.log(
       `Uploading ${
         assets.length
@@ -84,7 +80,7 @@ async function uploadArtifacts() {
     );
   } else {
     console.log(
-      '\nEnvironment variable "SKIP_UPLOADING_TO" contains "s3", skipping S3 upload.'
+      '\nEnvironment variables "ATOM_RELEASES_S3_KEY" and/or "ATOM_RELEASES_S3_SECRET" were not set, skipping S3 upload.'
     );
   }
 

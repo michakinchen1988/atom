@@ -17,10 +17,6 @@ const argv = yargs
   )
   .wrap(yargs.terminalWidth()).argv;
 
-// Compose an array of services to skip uploading to,
-// from environment variable SKIP_UPLOADING_TO (must be a comma-separated list)
-const skipUploadingTo = process.env.SKIP_UPLOADING_TO.split(',');
-
 async function uploadCrashReports() {
   const crashesPath = argv.crashReportPath;
   const crashes = glob.sync('/*.dmp', { root: crashesPath });
@@ -44,7 +40,12 @@ async function uploadCrashReports() {
   }
 }
 
-if (skipUploadingTo.indexOf('s3') === -1) {
+if (
+  process.env.ATOM_RELEASES_S3_KEY &&
+  process.env.ATOM_RELEASES_S3_KEY !== '$(ATOM_RELEASES_S3_KEY)' &&
+  process.env.ATOM_RELEASES_S3_SECRET &&
+  process.env.ATOM_RELEASES_S3_SECRET !== '$(ATOM_RELEASES_S3_SECRET)'
+) {
   // Wrap the call the async function and catch errors from its promise because
   // Node.js doesn't yet allow use of await at the script scope
   uploadCrashReports().catch(err => {
@@ -53,6 +54,6 @@ if (skipUploadingTo.indexOf('s3') === -1) {
   });
 } else {
   console.log(
-    '\nEnvironment variable "SKIP_UPLOADING_TO" contains "s3", skipping crash report uploads to S3.'
+    '\n\nEnvironment variables "ATOM_RELEASES_S3_KEY" and/or "ATOM_RELEASES_S3_SECRET" are not set, skipping S3 upload.'
   );
 }

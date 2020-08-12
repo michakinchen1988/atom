@@ -64,7 +64,12 @@ async function uploadArtifacts() {
     return;
   }
 
-  if ( (process.env.ATOM_RELEASES_S3_KEY && process.env.ATOM_RELEASES_S3_KEY !== "$(ATOM_RELEASES_S3_KEY)") && (process.env.ATOM_RELEASES_S3_SECRET && process.env.ATOM_RELEASES_S3_SECRET !== "$(ATOM_RELEASES_S3_SECRET)") ) {
+  if (
+    process.env.ATOM_RELEASES_S3_KEY &&
+    process.env.ATOM_RELEASES_S3_KEY !== '$(ATOM_RELEASES_S3_KEY)' &&
+    process.env.ATOM_RELEASES_S3_SECRET &&
+    process.env.ATOM_RELEASES_S3_SECRET !== '$(ATOM_RELEASES_S3_SECRET)'
+  ) {
     console.log(
       `Uploading ${
         assets.length
@@ -85,18 +90,12 @@ async function uploadArtifacts() {
   }
 
   if (argv.linuxRepoName) {
-    if (skipUploadingTo.indexOf('packagecloud') === -1) {
-      await uploadLinuxPackages(
-        argv.linuxRepoName,
-        process.env.PACKAGE_CLOUD_API_KEY,
-        releaseVersion,
-        assets
-      );
-    } else {
-      console.log(
-        '\nEnvironment variable "SKIP_UPLOADING_TO" contains "packagecloud", skipping Linux package upload.'
-      );
-    }
+    await uploadLinuxPackages(
+      argv.linuxRepoName,
+      process.env.PACKAGE_CLOUD_API_KEY,
+      releaseVersion,
+      assets
+    );
   } else {
     console.log(
       '\nNo Linux package repo name specified, skipping Linux package upload.'

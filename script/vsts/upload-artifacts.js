@@ -64,7 +64,12 @@ async function uploadArtifacts() {
     return;
   }
 
-  if ( (process.env.ATOM_RELEASES_S3_KEY && process.env.ATOM_RELEASES_S3_KEY !== "$(ATOM_RELEASES_S3_KEY)") && (process.env.ATOM_RELEASES_S3_SECRET && process.env.ATOM_RELEASES_S3_SECRET !== "$(ATOM_RELEASES_S3_SECRET)") ) {
+  if (
+    process.env.ATOM_RELEASES_S3_KEY &&
+    process.env.ATOM_RELEASES_S3_KEY !== '$(ATOM_RELEASES_S3_KEY)' &&
+    (process.env.ATOM_RELEASES_S3_SECRET &&
+      process.env.ATOM_RELEASES_S3_SECRET !== '$(ATOM_RELEASES_S3_SECRET)')
+  ) {
     console.log(
       `Uploading ${
         assets.length

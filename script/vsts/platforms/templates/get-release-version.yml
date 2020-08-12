@@ -3,6 +3,7 @@ parameters:
     type: string
     values:
       - --nightly
+      - ''
     default: ''
 
 jobs:

@@ -2,8 +2,7 @@ parameters:
   - name: NightlyFlag
     type: string
     values:
-      - ~
-      - --no
+      - --nightly
     default: ''
 
 jobs:

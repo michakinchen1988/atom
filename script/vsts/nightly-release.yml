@@ -2,7 +2,7 @@ jobs:
   # Import "GetReleaseVersion" job definition
   - template: platforms/templates/get-release-version.yml
     parameters:
-      NightlyFlag: --hullabaloo
+      NightlyFlag: --no
 
 
   # Import OS-specific build definitions

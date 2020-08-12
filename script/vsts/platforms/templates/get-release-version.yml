@@ -1,3 +1,11 @@
+parameters:
+  - name: NightlyFlag
+    type: string
+    values:
+      - ''
+      - --no
+    default: ''
+
 jobs:
 
 - job: GetReleaseVersion
@@ -9,8 +17,9 @@ jobs:
     - script: |
         cd script/vsts
         npm ci
+        echo "NightlyFlag is" ${{ parameters.NightlyFlag }}
       displayName: npm ci
-    - script: node script/vsts/get-release-version.js
+    - script: node script/vsts/get-release-version.js ${{ parameters.NightlyFlag }}
       name: Version
       env:
         REPO_OWNER: $(REPO_OWNER)

@@ -3,11 +3,6 @@ jobs:
   - template: platforms/templates/get-release-version.yml
     parameters:
       NightlyFlag: --nightly
-    env:
-      GITHUB_TOKEN: $(GITHUB_TOKEN)
-      REPO_OWNER: $(REPO_OWNER)
-      MAIN_REPO: $(MAIN_REPO)
-      NIGHTLY_RELEASE_REPO: $(NIGHTLY_RELEASE_REPO)
 
   # Import OS-specific build definitions
   - template: platforms/windows.yml

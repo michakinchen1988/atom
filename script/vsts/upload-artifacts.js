@@ -85,17 +85,26 @@ async function uploadArtifacts() {
     );
   } else {
     console.log(
-      '\nEnvironment variables "ATOM_RELEASES_S3_KEY" and/or "ATOM_RELEASES_S3_SECRET" were not set, skipping S3 upload.'
+      '\nEnvironment variables "ATOM_RELEASES_S3_KEY" and/or "ATOM_RELEASES_S3_SECRET" are not set, skipping S3 upload.'
     );
   }
 
   if (argv.linuxRepoName) {
-    await uploadLinuxPackages(
-      argv.linuxRepoName,
-      process.env.PACKAGE_CLOUD_API_KEY,
-      releaseVersion,
-      assets
-    );
+    if (
+      process.env.PACKAGE_CLOUD_API_KEY &&
+      process.env.PACKAGE_CLOUD_API_KEY !== '$(PACKAGE_CLOUD_API_KEY)'
+    ) {
+      await uploadLinuxPackages(
+        argv.linuxRepoName,
+        process.env.PACKAGE_CLOUD_API_KEY,
+        releaseVersion,
+        assets
+      );
+    } else {
+      console.log(
+        '\nEnvironment variable "PACKAGE_CLOUD_API_KEY" is not set, skipping PackageCloud upload.'
+      );
+    }
   } else {
     console.log(
       '\nNo Linux package repo name specified, skipping Linux package upload.'

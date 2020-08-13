@@ -3,24 +3,23 @@ jobs:
     displayName: Windows build
     dependsOn: GetReleaseVersion
     timeoutInMinutes: 180
+
+    variables:
+      ReleaseVersion: $[ dependencies.GetReleaseVersion.outputs['Version.ReleaseVersion'] ]
+      IsReleaseBranch: $[ dependencies.GetReleaseVersion.outputs['Version.IsReleaseBranch'] ]
+      IsSignedZipBranch: $[ dependencies.GetReleaseVersion.outputs['Version.IsSignedZipBranch'] ]
+      RunCoreMainTests: true
+      AppName: $[ dependencies.GetReleaseVersion.outputs['Version.AppName'] ]
+    pool:
+      vmImage: vs2017-win2016
+
     strategy:
       maxParallel: 2
       matrix:
         x64:
           buildArch: x64
-          RunCoreMainTests: true
         x86:
           buildArch: x86
-          RunCoreMainTests: true
-
-    pool:
-      vmImage: vs2017-win2016
-
-    variables:
-      AppName: $[ dependencies.GetReleaseVersion.outputs['Version.AppName'] ]
-      ReleaseVersion: $[ dependencies.GetReleaseVersion.outputs['Version.ReleaseVersion'] ]
-      IsReleaseBranch: $[ dependencies.GetReleaseVersion.outputs['Version.IsReleaseBranch'] ]
-      IsSignedZipBranch: $[ dependencies.GetReleaseVersion.outputs['Version.IsSignedZipBranch'] ]
 
     steps:
       - template: templates/preparation.yml
@@ -71,18 +70,18 @@ jobs:
               dir: $(Build.SourcesDirectory)/out
               condition: and(succeeded(), eq(variables['IsReleaseBranch'], 'true'))
 
-  - job: Windows_RendererTests
-    displayName: Windows
+  - job: Windows_tests
+    displayName: Windows test
     dependsOn: Windows_build
     timeoutInMinutes: 180
     strategy:
       maxParallel: 2
       matrix:
-        x64_Renderer_Test1:
+        x64_Renderer_1:
           RunCoreMainTests: false
           RunCoreRendererTests: 1
           buildArch: x64
-        x64_Renderer_Test2:
+        x64_Renderer_2:
           RunCoreMainTests: false
           RunCoreRendererTests: 2
           buildArch: x64

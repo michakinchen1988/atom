@@ -40,7 +40,11 @@ async function uploadCrashReports() {
   }
 }
 
-if (process.env.ATOM_RELEASES_S3_KEY && process.env.ATOM_RELEASES_S3_SECRET && process.env.ATOM_RELEASES_S3_BUCKET) {
+if (
+  process.env.ATOM_RELEASES_S3_KEY &&
+  process.env.ATOM_RELEASES_S3_SECRET &&
+  process.env.ATOM_RELEASES_S3_BUCKET
+) {
   // Wrap the call the async function and catch errors from its promise because
   // Node.js doesn't yet allow use of await at the script scope
   uploadCrashReports().catch(err => {

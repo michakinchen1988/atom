@@ -19,18 +19,8 @@ steps:
   displayName: 'Run a multi-line script'
 
 - script: |
-    echo 'vars: "$string" "$string2" "$string3"'
-  displayName: 'single quotes around entire command and args, double quotes around "each" "arg"'
-  env: { string: $(string), string3: variables.string3 }
-
-- script: |
     echo vars: "$string" "$string2" "$string3"
   displayName: 'echo with double quotes around each var, pass in env block; string: $(string), string3: variables.string3'
-  env: { string: $(string), string3: variables.string3 }
-
-- script: |
-    echo 'vars: $string $string2 $string3'
-  displayName: 'echo with single quotes around entire echo command and args'
   env: { string: $(string), string3: variables.string3 }
 
 - script: |
@@ -41,14 +31,6 @@ steps:
 - script: |
     echo Below is with no env
   displayName: 'Below is with no env'
-
-- script: |
-    echo 'vars: "$string" "$string2" "$string3"'
-  displayName: 'single quotes around whole echo command and args; echoing $string, $string2 and $string3 without passing in env block'
-
-- script: |
-    echo 'vars: $string $string2 $string3'
-  displayName: 'no env, single quotes around entire echo command and args'
 
 - script: |
     echo vars: "$string" "$string2" "$string3"

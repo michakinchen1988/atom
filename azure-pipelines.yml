@@ -69,7 +69,7 @@ steps:
 
 - script: |
     echo vars: SET: $SET, SET_SECRET: $SET_SECRET, notset: $notset
-  displayName: 'passed using ${{ template }} variable syntax in the env block: SET, SET_SECRET and notset'
+  displayName: 'passed using \$\{\{ template \}\} variable syntax in the env block: SET, SET_SECRET and notset'
   env: 
    SET: ${{ variables.SET }}
    SET_SECRET: ${{ variables.SET_SECRET }}

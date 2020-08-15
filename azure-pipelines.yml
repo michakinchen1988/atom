@@ -17,29 +17,25 @@ steps:
 
 - script: |
     echo vars: $string $string2 $string3
-  displayName: 'no quotes; string: $(string), string3: variables.string3'
+  displayName: 'passed in env: block; string: $(string), string3: variables.string3'
   env: { string: $(string), string3: variables.string3 }
 
 - script: |
-    echo vars: "$string" "$string2" "$string3"
-  displayName: 'no env, double quoting each individual var; echo "$string" "$string2" "$string3"'
-
-- script: |
     echo vars: $string $string2 $string3
-  displayName: 'no env, no quote marks'
+  displayName: 'no vars set or passed'
 
 - script: |
     echo vars: SET: $SET, SET_SECRET: $SET_SECRET, notset: $notset
-  displayName: 'no env; echo $SET, $SET_SECRET and $notset'
+  displayName: 'no env block; echo $SET, $SET_SECRET and $notset'
 
 - script: |
     echo vars: SET: $SET, SET_SECRET: $SET_SECRET, notset: $notset
-  displayName: 'passed using $(macro) syntax in the env block: $SET, $SET_SECRET and $notset'
+  displayName: 'passed using $(macro) syntax in the env block: $\(SET), $\(SET_SECRET) and $\(NOTSET)'
   env: {SET: $(SET), SET_SECRET: $(SET_SECRET), notset: $(NOTSET) }
 
 - script: |
     echo vars: SET: $SET, SET_SECRET: $SET_SECRET, notset: $notset
-  displayName: 'passed using \$\{\{ template \}\} variable syntax in the env block: SET, SET_SECRET and notset'
+  displayName: 'passed using $\{{ template }} variable syntax in the env block: SET, SET_SECRET and notset'
   env: 
    SET: ${{ variables.SET }}
    SET_SECRET: ${{ variables.SET_SECRET }}

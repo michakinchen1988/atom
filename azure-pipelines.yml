@@ -20,12 +20,12 @@ steps:
 
 - script: |
     echo 'vars: "$string" "$string2" "$string3"'
-  displayName: 'Run a one-line script'
+  displayName: 'single quotes around entire command and args, double quotes around "each" "arg"'
   env: { string: $(string), string3: variables.string3 }
 
 - script: |
     echo vars: "$string" "$string2" "$string3"
-  displayName: 'echo with double quotes around each var, pass in env block; macro syntax -- string $(string), string3 variables.string3'
+  displayName: 'echo with double quotes around each var, pass in env block; string: $(string), string3: variables.string3'
   env: { string: $(string), string3: variables.string3 }
 
 - script: |
@@ -35,7 +35,7 @@ steps:
 
 - script: |
     echo vars: $string $string2 $string3
-  displayName: 'no quotes; string $(string), string3 variables.string3'
+  displayName: 'no quotes; string: $(string), string3: variables.string3'
   env: { string: $(string), string3: variables.string3 }
 
 - script: |

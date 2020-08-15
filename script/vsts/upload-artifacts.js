@@ -67,7 +67,8 @@ async function uploadArtifacts() {
 
   if (
     process.env.ATOM_RELEASES_S3_KEY &&
-    process.env.ATOM_RELEASES_S3_SECRET
+    process.env.ATOM_RELEASES_S3_SECRET &&
+    process.env.ATOM_RELEASES_S3_BUCKET
   ) {
     console.log(
       `Uploading ${

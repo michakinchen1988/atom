@@ -76,9 +76,9 @@ steps:
   - script: >
       node $(Build.SourcesDirectory)\script\vsts\upload-crash-reports.js --crash-report-path "%ARTIFACT_STAGING_DIR%\crash-reports" --s3-path "vsts-artifacts/%BUILD_ID%/"
     env:
-      ATOM_RELEASES_S3_KEY: $(ATOM_RELEASES_S3_KEY)
-      ATOM_RELEASES_S3_SECRET: $(ATOM_RELEASES_S3_SECRET)
-      ATOM_RELEASES_S3_BUCKET: $(ATOM_RELEASES_S3_BUCKET)
+      ATOM_RELEASES_S3_KEY: ${{ variables.ATOM_RELEASES_S3_KEY }}
+      ATOM_RELEASES_S3_SECRET: ${{ variables.ATOM_RELEASES_S3_SECRET }}
+      ATOM_RELEASES_S3_BUCKET: ${{ variables.ATOM_RELEASES_S3_BUCKET }}
       ARTIFACT_STAGING_DIR: $(Build.ArtifactStagingDirectory)
       BUILD_ID: $(Build.BuildId)
     displayName: Upload crash reports to S3 on release branch

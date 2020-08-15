@@ -11,7 +11,7 @@ pool:
 
 steps:
 - script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  displayName: 'echo Hello, world"'
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
@@ -25,17 +25,17 @@ steps:
 
 - script: |
     echo vars: "$string" "$string2" "$string3"
-  displayName: 'Run a one-line script'
+  displayName: 'echo with double quotes around each var, pass in env block; macro syntax -- string $(string), string3 variables.string3'
   env: { string: $(string), string3: variables.string3 }
 
 - script: |
     echo 'vars: $string $string2 $string3'
-  displayName: 'Run a one-line script'
+  displayName: 'echo with single quotes around entire echo command and args'
   env: { string: $(string), string3: variables.string3 }
 
 - script: |
     echo vars: $string $string2 $string3
-  displayName: 'Run a one-line script'
+  displayName: 'no quotes; string $(string), string3 variables.string3'
   env: { string: $(string), string3: variables.string3 }
 
 - script: |
@@ -44,32 +44,32 @@ steps:
 
 - script: |
     echo 'vars: "$string" "$string2" "$string3"'
-  displayName: 'Run a one-line script'
+  displayName: 'single quotes around whole echo command and args; echoing $string, $string2 and $string3 without passing in env block'
 
 - script: |
     echo 'vars: $string $string2 $string3'
-  displayName: 'Run a one-line script'
+  displayName: 'no env, single quotes around entire echo command and args'
 
 - script: |
     echo vars: "$string" "$string2" "$string3"
-  displayName: 'Run a one-line script'
+  displayName: 'no env, double quoting each individual var; echo "$string" "$string2" "$string3"'
 
 - script: |
     echo vars: $string $string2 $string3
-  displayName: 'Run a one-line script'
+  displayName: 'no env, no quote marks'
 
 - script: |
     echo vars: SET: $SET, SET_SECRET: $SET_SECRET, notset: $notset
-  displayName: 'SET, SET_SECRET and notset'
+  displayName: 'no env; echo $SET, $SET_SECRET and $notset'
 
 - script: |
     echo vars: SET: $SET, SET_SECRET: $SET_SECRET, notset: $notset
-  displayName: 'passed as env vars: SET, SET_SECRET and notset'
+  displayName: 'passed using $(macro) syntax in the env block: $SET, $SET_SECRET and $notset'
   env: {SET: $(SET), SET_SECRET: $(SET_SECRET), notset: $(NOTSET) }
 
 - script: |
     echo vars: SET: $SET, SET_SECRET: $SET_SECRET, notset: $notset
-  displayName: 'using template variable syntax, passed as env vars: SET, SET_SECRET and notset'
+  displayName: 'passed using ${{ template }} variable syntax in the env block: SET, SET_SECRET and notset'
   env: 
    SET: ${{ variables.SET }}
    SET_SECRET: ${{ variables.SET_SECRET }}

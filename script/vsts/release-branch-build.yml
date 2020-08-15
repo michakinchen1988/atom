@@ -54,10 +54,10 @@ jobs:
         env:
           GITHUB_TOKEN: $(GITHUB_TOKEN)
           ATOM_RELEASE_VERSION: $(ReleaseVersion)
-          ATOM_RELEASES_S3_KEY: ${{ ATOM_RELEASES_S3_KEY }}
-          ATOM_RELEASES_S3_SECRET: ${{ ATOM_RELEASES_S3_SECRET }}
-          ATOM_RELEASES_S3_BUCKET: ${{ ATOM_RELEASES_S3_BUCKET }}
-          PACKAGE_CLOUD_API_KEY: ${{ PACKAGE_CLOUD_API_KEY }}
+          ATOM_RELEASES_S3_KEY: ${{ variables.ATOM_RELEASES_S3_KEY }}
+          ATOM_RELEASES_S3_SECRET: ${{ variables.ATOM_RELEASES_S3_SECRET }}
+          ATOM_RELEASES_S3_BUCKET: ${{ variables.ATOM_RELEASES_S3_BUCKET }}
+          PACKAGE_CLOUD_API_KEY: ${{ variables.PACKAGE_CLOUD_API_KEY }}
         displayName: Create Draft Release
         condition: and(succeeded(), eq(variables['Atom.AutoDraftRelease'], 'true'), eq(variables['IsReleaseBranch'], 'true'))
 
@@ -65,8 +65,8 @@ jobs:
           node $(Build.SourcesDirectory)/script/vsts/upload-artifacts.js --assets-path "$(System.ArtifactsDirectory)" --s3-path "vsts-artifacts/$(Build.BuildId)/"
         env:
           ATOM_RELEASE_VERSION: $(ReleaseVersion)
-          ATOM_RELEASES_S3_KEY: ${{ ATOM_RELEASES_S3_KEY }}
-          ATOM_RELEASES_S3_SECRET: ${{ ATOM_RELEASES_S3_SECRET }}
-          ATOM_RELEASES_S3_BUCKET: ${{ ATOM_RELEASES_S3_BUCKET }}
+          ATOM_RELEASES_S3_KEY: ${{ variables.ATOM_RELEASES_S3_KEY }}
+          ATOM_RELEASES_S3_SECRET: ${{ variables.ATOM_RELEASES_S3_SECRET }}
+          ATOM_RELEASES_S3_BUCKET: ${{ variables.ATOM_RELEASES_S3_BUCKET }}
         displayName: Upload CI Artifacts to S3
         condition: and(succeeded(), eq(variables['IsSignedZipBranch'], 'true'))

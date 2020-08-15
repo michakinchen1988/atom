@@ -85,7 +85,7 @@ async function uploadArtifacts() {
     );
   } else {
     console.log(
-      '\nEnvironment variables "ATOM_RELEASES_S3_KEY" and/or "ATOM_RELEASES_S3_SECRET" are not set, skipping S3 upload.'
+      '\nEnvironment variables "ATOM_RELEASES_S3_BUCKET", "ATOM_RELEASES_S3_KEY" and/or "ATOM_RELEASES_S3_SECRET" are not set, skipping S3 upload.'
     );
   }
 

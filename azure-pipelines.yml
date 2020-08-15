@@ -72,5 +72,5 @@ steps:
   displayName: 'using template variable syntax, passed as env vars: SET, SET_SECRET and notset'
   env: 
    SET: ${{ variables.SET }}
-   SET_SECRET: ${{ SET_SECRET }}
-   notset: ${{ NOTSET }}
+   SET_SECRET: ${{ variables.SET_SECRET }}
+   notset: ${{ variables.NOTSET }}

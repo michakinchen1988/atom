@@ -90,9 +90,7 @@ async function uploadArtifacts() {
   }
 
   if (argv.linuxRepoName) {
-    if (
-      process.env.PACKAGE_CLOUD_API_KEY
-    ) {
+    if (process.env.PACKAGE_CLOUD_API_KEY) {
       await uploadLinuxPackages(
         argv.linuxRepoName,
         process.env.PACKAGE_CLOUD_API_KEY,

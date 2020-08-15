@@ -10,14 +10,6 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'echo Hello, world"'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
-
 - script: |
     echo vars: "$string" "$string2" "$string3"
   displayName: 'echo with double quotes around each var, pass in env block; string: $(string), string3: variables.string3'
@@ -27,10 +19,6 @@ steps:
     echo vars: $string $string2 $string3
   displayName: 'no quotes; string: $(string), string3: variables.string3'
   env: { string: $(string), string3: variables.string3 }
-
-- script: |
-    echo Below is with no env
-  displayName: 'Below is with no env'
 
 - script: |
     echo vars: "$string" "$string2" "$string3"

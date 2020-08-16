@@ -89,6 +89,7 @@ function copyNonASARResources(packagedAppPath, bundledResourcesPath) {
       CONFIG.repositoryRootPath,
       'apm',
       'node_modules',
+      '@atom-ide-community',
       'atom-package-manager'
     ),
     path.join(bundledResourcesPath, 'app', 'apm'),

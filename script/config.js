@@ -100,6 +100,7 @@ function getApmBinPath() {
   return path.join(
     apmRootPath,
     'node_modules',
+    '@atom-ide-community',
     'atom-package-manager',
     'bin',
     apmBinName

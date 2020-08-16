@@ -34,7 +34,7 @@ jobs:
         
       - script: |
           cd script\vsts
-          npm install
+          npm ci
         displayName: Install Windows build dependencies
         condition: eq(variables['Agent.OS'], 'Windows_NT')
 

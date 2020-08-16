@@ -6,6 +6,7 @@ const path = require('path')
 const CONFIG = require('./config')
 const childProcess = require('child_process')
 const cleanDependencies = require('./lib/clean-dependencies')
+const deleteMsbuildFromPath = require('./lib/delete-msbuild-from-path')
 const dependenciesFingerprint = require('./lib/dependencies-fingerprint')
 const installApm = require('./lib/install-apm')
 const runApmInstall = require('./lib/run-apm-install')
@@ -30,6 +31,8 @@ verifyMachineRequirements(ci)
 if (dependenciesFingerprint.isOutdated()) {
   cleanDependencies()
 }
+
+if (process.platform === 'win32') deleteMsbuildFromPath()
 
 installScriptDependencies(ci)
 installApm(ci)

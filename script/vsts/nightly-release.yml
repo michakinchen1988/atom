@@ -17,9 +17,6 @@ jobs:
 
   # Import OS-specific build definitions
   - template: platforms/windows.yml
-  - template: platforms/macos.yml
-  - template: platforms/linux.yml
-
 
   - job: Release
     pool:
@@ -27,9 +24,7 @@ jobs:
 
     dependsOn:
       - GetReleaseVersion
-      - Windows_RendererTests
-      - Linux
-      - macOS_tests
+      - Windows_build
 
     variables:
       ReleaseVersion: $[ dependencies.GetReleaseVersion.outputs['Version.ReleaseVersion'] ]

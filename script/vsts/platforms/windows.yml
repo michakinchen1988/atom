@@ -8,9 +8,11 @@ jobs:
       matrix:
         x64:
           buildArch: x64
+          BUILD_ARCH: x64
           RunCoreMainTests: true
         x86:
           buildArch: x86
+          BUILD_ARCH: x86
           RunCoreMainTests: true
 
     pool:
@@ -23,7 +25,18 @@ jobs:
       IsSignedZipBranch: $[ dependencies.GetReleaseVersion.outputs['Version.IsSignedZipBranch'] ]
 
     steps:
-      - template: templates/preparation.yml
+
+      - pwsh: |
+          $env:BUILD_ARCH=$env:buildArch
+          echo "##vso[task.setvariable variable=BUILD_ARCH]$env:BUILD_ARCH" # Azure syntax
+          echo BUILD_ARCH: $env:BUILD_ARCH
+        displayName: Setting globally used env variables
+        
+      - script: |
+          cd script\vsts
+          npm install
+        displayName: Install Windows build dependencies
+        condition: eq(variables['Agent.OS'], 'Windows_NT')
 
       - template: templates/bootstrap.yml
 

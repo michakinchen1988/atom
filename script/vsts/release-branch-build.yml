@@ -4,6 +4,12 @@ trigger:
   - electron-*
 pr: none # no PR triggers
 
+variables:
+  ATOM_RELEASES_S3_KEY:  $[ variables['ATOM_RELEASES_S3_KEY'] ]
+  ATOM_RELEASES_S3_SECRET:  $[ variables['ATOM_RELEASES_S3_SECRET'] ]
+  ATOM_RELEASES_S3_BUCKET: $[ variables['ATOM_RELEASES_S3_BUCKET'] ]
+  PACKAGE_CLOUD_API_KEY: $[ variables['PACKAGE_CLOUD_API_KEY'] ]
+
 jobs:
   - job: GetReleaseVersion
     pool:

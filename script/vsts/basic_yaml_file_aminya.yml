@@ -1,0 +1,13 @@
+pool:
+  vmImage: 'ubuntu-latest'
+  
+# Does not work without this:
+variables:
+  secrectVar: $[ variables['secretVar'] ]
+
+steps:
+- pwsh: |     
+    node script/vsts/test.js   # https://github.com/aminya/threadsjs-test/blob/azure-pipelines/test.js
+
+  env:
+    secrectVar_Macro: $(secrectVar)

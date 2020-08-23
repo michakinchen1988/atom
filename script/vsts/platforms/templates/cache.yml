@@ -17,7 +17,7 @@ steps:
 
   - task: Cache@2
     displayName: Cache script/node_modules
-    condition: eq(variables.ApmNodeModulesRestored, "true")
+    condition: eq(variables.ApmNodeModulesRestored, true)
     inputs:
       key: 'npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | script/package.json, script/package-lock.json, package.json, package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml, script/vsts/platforms/preparation.yml'
       path: 'script/node_modules'
@@ -25,7 +25,7 @@ steps:
 
   - task: Cache@2
     displayName: Cache node_modules
-    condition: eq(variables.ScriptNodeModulesRestored, "true")
+    condition: eq(variables.ScriptNodeModulesRestored, true)
     inputs:
       key: 'npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | script/package.json, script/package-lock.json, package.json, package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml, script/vsts/platforms/preparation.yml'
       path: 'node_modules'

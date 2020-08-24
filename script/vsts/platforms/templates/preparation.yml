@@ -36,5 +36,5 @@ steps:
   - script: |
       cd script\vsts
       npm install
-    displayName: Install Windows build dependencies
+    displayName: Install windows-run.js dependencies
     condition: eq(variables['Agent.OS'], 'Windows_NT')

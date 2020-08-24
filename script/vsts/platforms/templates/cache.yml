@@ -19,7 +19,7 @@ steps:
     displayName: Cache script/node_modules
     condition: eq(variables.ApmNodeModulesRestored, 'true')
     inputs:
-      key: 'npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | script/package.json, script/package-lock.json, package.json, package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml, script/vsts/platforms/preparation.yml'
+      key: 'npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | package.json, package-lock.json, apm/package.json, apm/package-lock.json, script/package.json, script/package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml, script/vsts/platforms/preparation.yml'
       path: 'script/node_modules'
       cacheHitVar: ScriptNodeModulesRestored
 
@@ -27,6 +27,6 @@ steps:
     displayName: Cache node_modules
     condition: eq(variables.ScriptNodeModulesRestored, 'true')
     inputs:
-      key: 'npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | script/package.json, script/package-lock.json, package.json, package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml, script/vsts/platforms/preparation.yml'
+      key: 'npm | "$(Agent.OS)" | "$(BUILD_ARCH)" | package.json, package-lock.json, apm/package.json, apm/package-lock.json, script/package.json, script/package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml, script/vsts/platforms/preparation.yml'
       path: 'node_modules'
       cacheHitVar: MainNodeModulesRestored

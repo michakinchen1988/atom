@@ -3,7 +3,7 @@ steps:
   # Linux Specific
   - script: |
       sudo apt-get update
-      sudo apt-get install -y --no-upgrade build-essential ca-certificates xvfb fakeroot git libsecret-1-dev rpm libx11-dev libxkbfile-dev xz-utils xorriso zsync libxss1 libgconf2-4 libgtk-3-0 libasound2 libicu-dev
+      sudo apt-get install -y --no-upgrade build-essential ca-certificates xvfb fakeroot git libsecret-1-dev rpm libx11-dev libxkbfile-dev xz-utils xorriso zsync libxss1 libgconf-2-4 libgtk-3-0 libasound2 libicu-dev
       # clang 9 is included in the image
       sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-9 10
       sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-9 10

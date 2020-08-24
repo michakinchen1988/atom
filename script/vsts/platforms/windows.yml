@@ -18,6 +18,9 @@ jobs:
       ReleaseVersion: $[ dependencies.GetReleaseVersion.outputs['Version.ReleaseVersion'] ]
       IsReleaseBranch: $[ dependencies.GetReleaseVersion.outputs['Version.IsReleaseBranch'] ]
       IsSignedZipBranch: $[ dependencies.GetReleaseVersion.outputs['Version.IsSignedZipBranch'] ]
+      # workaround for https://bit.ly/2CK8itc
+      _ATOM_WIN_CODE_SIGNING_CERT_DOWNLOAD_URL: $[ variables.ATOM_WIN_CODE_SIGNING_CERT_DOWNLOAD_URL ]
+      _ATOM_WIN_CODE_SIGNING_CERT_PASSWORD: $[ variables.ATOM_WIN_CODE_SIGNING_CERT_PASSWORD ]
 
     steps:
       - task: UsePythonVersion@0
@@ -115,8 +118,8 @@ jobs:
           GITHUB_TOKEN: $(GITHUB_TOKEN)
           BUILD_ARCH: $(buildArch)
           ATOM_RELEASE_VERSION: $(ReleaseVersion)
-          ATOM_WIN_CODE_SIGNING_CERT_DOWNLOAD_URL: $(ATOM_WIN_CODE_SIGNING_CERT_DOWNLOAD_URL)
-          ATOM_WIN_CODE_SIGNING_CERT_PASSWORD: $(ATOM_WIN_CODE_SIGNING_CERT_PASSWORD)
+          ATOM_WIN_CODE_SIGNING_CERT_DOWNLOAD_URL: $(_ATOM_WIN_CODE_SIGNING_CERT_DOWNLOAD_URL)
+          ATOM_WIN_CODE_SIGNING_CERT_PASSWORD: $(_ATOM_WIN_CODE_SIGNING_CERT_PASSWORD)
           IS_RELEASE_BRANCH: $(IsReleaseBranch)
           IS_SIGNED_ZIP_BRANCH: $(IsSignedZipBranch)
           npm_config_build_from_source: true

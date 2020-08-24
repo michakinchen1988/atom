@@ -37,6 +37,7 @@ jobs:
           CI_PROVIDER: VSTS
           NPM_BIN_PATH: /Users/runner/hostedtoolcache/node/12.4.0/x64/bin/npm
           npm_config_build_from_source: true
+          GITHUB_TOKEN: $(GITHUB_TOKEN)
         condition: ne(variables['CacheRestored'], 'true')
 
       - task: 1ESLighthouseEng.PipelineArtifactCaching.SaveCacheV1.SaveCache@1
@@ -137,6 +138,7 @@ jobs:
           CI_PROVIDER: VSTS
           NPM_BIN_PATH: /Users/runner/hostedtoolcache/node/12.4.0/x64/bin/npm
           npm_config_build_from_source: true
+          GITHUB_TOKEN: $(GITHUB_TOKEN)
 
         condition: ne(variables['CacheRestored'], 'true')
 

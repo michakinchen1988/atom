@@ -24,13 +24,6 @@ steps:
       versionSpec: 12.16.3
     displayName: Install Node.js 12.16.3
 
-  - pwsh: |
-      $env:BUILD_ARCH=$env:buildArch
-      echo "##vso[task.setvariable variable=BUILD_ARCH]$env:BUILD_ARCH" # Azure syntax
-      echo BUILD_ARCH: $env:BUILD_ARCH
-    displayName: Set BUILD_ARCH on Windows
-    condition: eq($(Agent.OS), WINDOWS_NT)
-
   # Windows Specific
 
   - script: |

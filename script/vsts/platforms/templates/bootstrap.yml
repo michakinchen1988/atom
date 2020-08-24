@@ -17,7 +17,7 @@ steps:
       }
 
       # Bootstrap
-      if (($env:AGENT_OS  -eq "Windows_NT") -and ($env:BUILD_ARCH -eq "x86")) {
+      if (($env:AGENT_OS  -eq "Windows_NT") -and ($env:buildArch -eq "x86")) {
         node 'script\vsts\windows-run.js' 'script\bootstrap.cmd'
       }
       else {

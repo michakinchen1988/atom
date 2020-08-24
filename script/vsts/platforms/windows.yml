@@ -32,8 +32,6 @@ jobs:
       - template: templates/bootstrap.yml
 
       - script: node script\vsts\windows-run.js script\lint.cmd
-        env:
-          BUILD_ARCH: $(buildArch)
         displayName: Run linter
 
       - template: templates/build.yml
@@ -41,14 +39,12 @@ jobs:
       - template: templates/test.yml
 
       - pwsh: |
-          if ($env:BUILD_ARCH -eq "x64") {
+          if ($env:buildArch -eq "x64") {
             $env:FileID="-x64"
           } else {
             $env:FileID=""
           }
           echo "##vso[task.setvariable variable=FileID]$env:FileID" # Azure syntax
-        env:
-          BUILD_ARCH: $(buildArch)
         displayName: Set FileID based on the arch
 
       - template: templates/publish.yml
@@ -56,7 +52,7 @@ jobs:
           artifacts:
             - filename: atom$(FileID)-windows.zip
               dir: $(Build.SourcesDirectory)/out
-              condition: and( succeeded(), or( eq(variables['BUILD_ARCH'], 'x64'), ne(variables['Build.Reason'], 'PullRequest') ) )
+              condition: and( succeeded(), or( eq(variables['buildArch'], 'x64'), ne(variables['Build.Reason'], 'PullRequest') ) )
             - filename: AtomSetup$(FileID).exe
               dir: $(Build.SourcesDirectory)/out
               condition: and(succeeded(), eq(variables['IsReleaseBranch'], 'true'))
@@ -107,12 +103,10 @@ jobs:
 
       # Downloading the build artifacts
       - pwsh: |
-          if ($env:BUILD_ARCH -eq "x64") {
+          if ($env:buildArch -eq "x64") {
             $env:FileID="-x64"
             echo "##vso[task.setvariable variable=FileID]$env:FileID" # Azure syntax
           }
-        env:
-          BUILD_ARCH: $(buildArch)
         displayName: Set FileID based on the arch
 
       - template: templates/download-unzip.yml

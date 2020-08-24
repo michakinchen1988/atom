@@ -26,7 +26,7 @@ async function runScriptForBuildArch() {
   }
 
   let exitCode = 0;
-  if (process.env.BUILD_ARCH === 'x86') {
+  if (process.env.buildArch === 'x86') {
     await downloadX86Node();
 
     // Write out a launcher script that will launch the requested script

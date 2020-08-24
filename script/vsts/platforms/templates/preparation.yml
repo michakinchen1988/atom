@@ -40,7 +40,7 @@ steps:
   # Windows Specific
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.8'
+      versionSpec: '2.7'
     condition: eq(variables['Agent.OS'], 'Windows_NT')
 
   - script: |

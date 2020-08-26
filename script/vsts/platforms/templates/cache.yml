@@ -11,20 +11,20 @@ steps:
   - task: Cache@2
     displayName: Cache apm/node_modules
     inputs:
-      key: 'npm2 | "$(Agent.OS)" | "$(BUILD_ARCH)" | package.json, package-lock.json, apm/package.json, apm/package-lock.json, script/package.json, script/package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml, script/vsts/platforms/preparation.yml'
+      key: 'npm3 | "$(Agent.OS)" | "$(BUILD_ARCH)" | package.json, package-lock.json, apm/package.json, apm/package-lock.json, script/package.json, script/package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml, script/vsts/platforms/preparation.yml'
       path: 'apm/node_modules'
       cacheHitVar: ApmNodeModulesRestored
 
   - task: Cache@2
     displayName: Cache script/node_modules
     inputs:
-      key: 'npm2 | "$(Agent.OS)" | "$(BUILD_ARCH)" | package.json, package-lock.json, apm/package.json, apm/package-lock.json, script/package.json, script/package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml, script/vsts/platforms/preparation.yml'
+      key: 'npm3 | "$(Agent.OS)" | "$(BUILD_ARCH)" | package.json, package-lock.json, apm/package.json, apm/package-lock.json, script/package.json, script/package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml, script/vsts/platforms/preparation.yml'
       path: 'script/node_modules'
       cacheHitVar: ScriptNodeModulesRestored
 
   - task: Cache@2
     displayName: Cache node_modules
     inputs:
-      key: 'npm2 | "$(Agent.OS)" | "$(BUILD_ARCH)" | package.json, package-lock.json, apm/package.json, apm/package-lock.json, script/package.json, script/package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml, script/vsts/platforms/preparation.yml'
+      key: 'npm3 | "$(Agent.OS)" | "$(BUILD_ARCH)" | package.json, package-lock.json, apm/package.json, apm/package-lock.json, script/package.json, script/package-lock.json, script/vsts/platforms/${{ parameters.OS }}.yml, script/vsts/platforms/preparation.yml'
       path: 'node_modules'
       cacheHitVar: MainNodeModulesRestored

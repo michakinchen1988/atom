@@ -22,10 +22,10 @@ steps:
   # Common
   - task: NodeTool@0
     inputs:
-      versionSpec: 12.4.0
-    displayName: Install Node.js 12.4.0
+      versionSpec: 10.22.0
+    displayName: Install Node.js 10.22.0
 
-  - script: npm install --global npm@6.9.0
+  - script: npm install --global npm@6.14.6
     displayName: Update npm
 
   # Use Azure Syntax to set env variables for all shells and steps
@@ -39,7 +39,7 @@ steps:
   # Windows Specific
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.8'
+      versionSpec: '2.7'
     condition: eq(variables['Agent.OS'], 'Windows_NT')
 
   - script: |
@@ -50,8 +50,8 @@ steps:
 
   - script: |
       ECHO Upgrading npm
-      npm-windows-upgrade --no-spinner --no-prompt --npm-version 6.9.0
-    displayName: Install npm 6.9.0
+      npm-windows-upgrade --no-spinner --no-prompt --npm-version 6.14.6
+    displayName: Install npm 6.14.6
     condition: eq(variables['Agent.OS'], 'Windows_NT')
 
   - script: |

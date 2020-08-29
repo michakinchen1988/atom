@@ -10,7 +10,7 @@ module.exports = function(ci) {
   console.log('Installing script dependencies');
   childProcess.execFileSync(
     CONFIG.getNpmBinPath(ci),
-    ['--loglevel=error', ci ? 'ci' : 'install'],
+    ['--loglevel=error', 'install'],
     { env: process.env, cwd: CONFIG.scriptRootPath }
   );
 };

@@ -5,9 +5,9 @@ const path = require('path');
 
 const CONFIG = require('../config');
 
-module.exports = function(ci) {
+module.exports = function() {
   verifyNode();
-  verifyNpm(ci);
+  verifyNpm();
   verifyPython();
 };
 
@@ -28,15 +28,15 @@ function verifyNode() {
   }
 }
 
-function verifyNpm(ci) {
+function verifyNpm() {
   const stdout = childProcess.execFileSync(
-    CONFIG.getNpmBinPath(ci),
+    CONFIG.getNpmBinPath(),
     ['--version'],
     { env: process.env }
   );
   const fullVersion = stdout.toString().trim();
   const majorVersion = fullVersion.split('.')[0];
-  const oldestMajorVersionSupported = ci ? 6 : 3;
+  const oldestMajorVersionSupported = 3;
   if (majorVersion >= oldestMajorVersionSupported) {
     console.log(`Npm:\tv${fullVersion}`);
   } else {

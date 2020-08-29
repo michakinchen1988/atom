@@ -25,9 +25,6 @@ jobs:
           npm_config_clang: 1
         condition: or(ne(variables['MainNodeModulesRestored'], 'true'), ne(variables['ScriptNodeModulesRestored'], 'true'), ne(variables['ApmNodeModulesRestored'], 'true'))
 
-      - script: script/lint
-        displayName: Run linter
-
       - script: script/build --no-bootstrap --create-debian-package --create-rpm-package --compress-artifacts
         env:
           GITHUB_TOKEN: $(GITHUB_TOKEN)

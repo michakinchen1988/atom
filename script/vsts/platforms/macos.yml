@@ -27,9 +27,6 @@ jobs:
           npm_config_build_from_source: true
         condition: or(ne(variables['MainNodeModulesRestored'], 'true'), ne(variables['ScriptNodeModulesRestored'], 'true'), ne(variables['ApmNodeModulesRestored'], 'true'))
 
-      - script: script/lint
-        displayName: Run linter
-
       - script: |
           if [ $SHOULD_SIGN == "true" ] && ([ $IS_RELEASE_BRANCH == "true" ] || [ $IS_SIGNED_ZIP_BRANCH == "true" ]); then
             script/build --no-bootstrap --code-sign --compress-artifacts

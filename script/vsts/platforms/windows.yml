@@ -37,11 +37,6 @@ jobs:
         displayName: Bootstrap build environment
         condition: or(ne(variables['MainNodeModulesRestored'], 'true'), ne(variables['ScriptNodeModulesRestored'], 'true'), ne(variables['ApmNodeModulesRestored'], 'true'))
 
-      - script: node script\vsts\windows-run.js script\lint.cmd
-        env:
-          BUILD_ARCH: $(buildArch)
-        displayName: Run linter
-
       - script: |
           IF NOT EXIST C:\tmp MKDIR C:\tmp
           SET SQUIRREL_TEMP=C:\tmp

@@ -23,7 +23,7 @@ jobs:
         env:
           CI: true
           CI_PROVIDER: VSTS
-          NPM_BIN_PATH: /Users/runner/hostedtoolcache/node/10.22.0/x64/bin/npm
+          NPM_BIN_PATH: /usr/local/bin/npm
           npm_config_build_from_source: true
         condition: or(ne(variables['MainNodeModulesRestored'], 'true'), ne(variables['ScriptNodeModulesRestored'], 'true'), ne(variables['ApmNodeModulesRestored'], 'true'))
 

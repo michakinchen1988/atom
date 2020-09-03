@@ -36,11 +36,10 @@ if (process.platform === 'win32') deleteMsbuildFromPath()
 
 installScriptDependencies(ci)
 installApm(ci)
-childProcess.execFileSync(
-  CONFIG.getApmBinPath(),
-  ['--version'],
-  {stdio: 'inherit'}
-)
+childProcess.execFileSync(CONFIG.getApmBinPath(), ['--version'], {
+  stdio: 'inherit',
+  env: { ATOM_RESOURCE_PATH: CONFIG.repositoryRootPath },
+});
 runApmInstall(CONFIG.repositoryRootPath, ci)
 
 dependenciesFingerprint.write()

@@ -36,11 +36,16 @@ if (process.platform === 'win32') deleteMsbuildFromPath()
 
 installScriptDependencies(ci)
 installApm(ci)
+
+// Set ATOM_RESOURCE_PATH so that `apm --version` prints the Atom version currently being bootstrapped
+const apmPrintVersionsEnv = Object.assign({}, process.env);
+apmPrintVersionsEnv.ATOM_RESOURCE_PATH = CONFIG.repositoryRootPath;
 childProcess.execFileSync(
   CONFIG.getApmBinPath(),
   ['--version'],
-  {stdio: 'inherit'}
+  {stdio: 'inherit', env: apmPrintVersionsEnv }
 )
+
 runApmInstall(CONFIG.repositoryRootPath, ci)
 
 dependenciesFingerprint.write()

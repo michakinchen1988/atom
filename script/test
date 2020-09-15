@@ -45,6 +45,10 @@ const CONFIG = require('./config');
 const backupNodeModules = require('./lib/backup-node-modules');
 const runApmInstall = require('./lib/run-apm-install');
 
+if (process.env.npm_config_jobs === undefined) {
+  process.env.npm_config_jobs = "max"
+}
+
 function assertExecutablePaths(executablePaths) {
   assert(
     executablePaths.length !== 0,

@@ -23,7 +23,7 @@ steps:
   - bash: |
       if [ ${BUILD_ARCH} = 'x86' ]; then shouldForce32BitNode=true; else shouldForce32BitNode=false; fi
       echo "should force 32-bit Node?: ${shouldForce32BitNode}"
-    displayName: Debugging script: Should we force 32-bit Node?
+    displayName: Debugging script... Should we force 32-bit Node?
 
   - task: NodeTool@0
     inputs:

@@ -1,7 +1,3 @@
-variables:
-  shouldForce32BitNode: $[eq(variables['BUILD_ARCH'], 'x86']
-  # Force downloading 32-bit Node for the 'Windows x86' CI run. Otheriwse, this is set to 'false'
-
 steps:
 
   # Linux Specific
@@ -27,7 +23,7 @@ steps:
   - task: NodeTool@0
     inputs:
       versionSpec: 12.16.3
-      force32bit: $[variables.shouldForce32BitNode]
+      force32bit: $[eq(variables.BUILD_ARCH, 'x86'] # Force downloading 32-bit Node on 'Windows x86' CI runs
     displayName: Install Node.js 12.16.3
 
   - script: npm install --global npm@6.14.8

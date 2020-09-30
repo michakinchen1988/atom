@@ -20,7 +20,9 @@ steps:
     condition: eq(variables['Agent.OS'], 'Linux')
 
   # Common
-  - script: echo "should force 32-bit Node?: " $[eq(variables.BUILD_ARCH, 'x86')]
+  - script: |
+      if [ ${BUILD_ARCH} = 'x86' ]; then shouldForce32BitNode=true; else shouldForce32BitNode=false; fi
+      echo "should force 32-bit Node?: ${shouldForce32BitNode}"
 
   - task: NodeTool@0
     inputs:

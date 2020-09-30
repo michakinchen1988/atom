@@ -20,12 +20,12 @@ steps:
     condition: eq(variables['Agent.OS'], 'Linux')
 
   # Common
-  variables:
-    shouldForce32Bit: false
+  - variables:
+      shouldForce32Bit: false
 
-  variables:
-    shouldForce32Bit: true
-  condition: and(eq(variables['Agent.OS'], 'Windows_NT'), eq(variables['BUILD_ARCH'], 'x86')
+  - variables:
+      shouldForce32Bit: true
+    condition: and(eq(variables['Agent.OS'], 'Windows_NT'), eq(variables['BUILD_ARCH'], 'x86')
 
   - task: NodeTool@0
     inputs:

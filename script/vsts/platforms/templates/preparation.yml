@@ -20,6 +20,8 @@ steps:
     condition: eq(variables['Agent.OS'], 'Linux')
 
   # Common
+  - script: echo "should force 32-bit Node?: " $[eq(variables.BUILD_ARCH, 'x86')]
+
   - task: NodeTool@0
     inputs:
       versionSpec: 12.16.3

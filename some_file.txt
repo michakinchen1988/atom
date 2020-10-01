@@ -3,3 +3,5 @@ first file
 third line
 
 fifth line
+
+seventh line

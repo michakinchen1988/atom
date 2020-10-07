@@ -27,7 +27,7 @@ steps:
 
   - task: NodeTool@0
     inputs:
-      versionSpec: 12.16.3
+      versionSpec: $(variables['BUILD_ARCH'])
       force32bit: $(eq(variables['BUILD_ARCH'], 'x86'))
     displayName: Install Node.js 12.16.3
 

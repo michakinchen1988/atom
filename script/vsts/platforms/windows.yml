@@ -31,7 +31,7 @@ jobs:
 
       - template: templates/bootstrap.yml
 
-      - script: node script\vsts\windows-run.js script\lint.cmd
+      - script: script\lint.cmd
         env:
           BUILD_ARCH: $(BUILD_ARCH)
         displayName: Run linter

@@ -11,6 +11,7 @@ jobs:
           RunCoreMainTests: true
         x86:
           BUILD_ARCH: x86
+          SHOULD_FORCE_32_BIT_NODE: true
           RunCoreMainTests: true
 
     pool:

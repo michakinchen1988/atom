@@ -32,6 +32,13 @@ steps:
     displayName: Post-process test results
     condition: ne(variables['Atom.SkipTests'], 'true')
 
+  - bash: |
+      if [ "${FORCE_32_BIT_NODE}" = "true" ]; then \
+        echo "##vso[task.setvariable variable=BUILD_ARCH]x86"
+      else
+        echo "##vso[task.setvariable variable=BUILD_ARCH]x64"
+      fi
+    displayName: Set BUILD_ARCH based on FORCE_32_BIT_NODE
 
   - task: PublishTestResults@2
     inputs:

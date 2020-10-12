@@ -7,10 +7,9 @@ jobs:
       maxParallel: 2
       matrix:
         x64:
-          BUILD_ARCH: x64
           RunCoreMainTests: true
         x86:
-          BUILD_ARCH: x86
+          FORCE_32_BIT_NODE: true
           RunCoreMainTests: true
 
     pool:
@@ -37,7 +36,7 @@ jobs:
 
 
       - pwsh: |
-          if ($env:BUILD_ARCH -eq "x64") {
+          if ($env:FORCE_32_BIT_NODE -ne "true") {
             $env:FileID="-x64"
           } else {
             $env:FileID=""
@@ -50,7 +49,7 @@ jobs:
           artifacts:
             - fileName: atom$(FileID)-windows.zip
               fileDir: $(Build.SourcesDirectory)/out
-              condition: and( succeeded(), or( eq(variables['BUILD_ARCH'], 'x64'), ne(variables['Build.Reason'], 'PullRequest') ) )
+              condition: and( succeeded(), or( ne(variables['FORCE_32_BIT_NODE'], 'true'), ne(variables['Build.Reason'], 'PullRequest') ) )
             - fileName: AtomSetup$(FileID).exe
               fileDir: $(Build.SourcesDirectory)/out
               condition: and(succeeded(), eq(variables['IsReleaseBranch'], 'true'))
@@ -75,12 +74,10 @@ jobs:
         x64_Renderer_Test1:
           RunCoreMainTests: false
           RunCoreRendererTests: 1
-          BUILD_ARCH: x64
           os: windows-2019
         x64_Renderer_Test2:
           RunCoreMainTests: false
           RunCoreRendererTests: 2
-          BUILD_ARCH: x64
           os: windows-2019
 
     pool:
@@ -103,7 +100,7 @@ jobs:
 
       # Downloading the build artifacts
       - pwsh: |
-          if ($env:BUILD_ARCH -eq "x64") {
+          if ($env:FORCE_32_BIT_NODE -ne "true") {
             $env:FileID="-x64"
           } else {
             $env:FileID=""

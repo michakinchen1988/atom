@@ -6,7 +6,7 @@ const path = require('path');
 const CONFIG = require('../config');
 
 module.exports = function(ci) {
-  console.log('getNpmBinPath is: ' + getNpmBinPath);
+  console.log('CONFIG.getNpmBinPath is: ' + CONFIG.getNpmBinPath);
 
   verifyNode();
   verifyNpm(ci);

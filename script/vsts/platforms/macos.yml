@@ -19,6 +19,9 @@ jobs:
 
       - bash: echo "which -a npm"; which -a npm; echo "which npm"; which npm
 
+      - bash: mv /usr/local/bin/npm /usr/local/bin_npm
+        displayName: Hide system npm so that Node's bundled npm is used
+
       - template: templates/cache.yml
         parameters:
           OS: macos

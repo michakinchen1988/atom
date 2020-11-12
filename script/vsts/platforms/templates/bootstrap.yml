@@ -6,7 +6,6 @@ steps:
         $env:npm_config_build_from_source=true
       }
       if ($env:AGENT_OS -eq "Darwin") {
-        $env:NPM_BIN_PATH="/usr/local/bin/npm"
         $env:npm_config_build_from_source=true
       }
       if ($env:AGENT_OS -eq "Linux") {

@@ -13,7 +13,11 @@ jobs:
       vmImage: macos-10.14
 
     steps:
+      - bash: echo "which -a npm"; which -a npm; echo "which npm"; which npm
+
       - template: templates/preparation.yml
+
+      - bash: echo "which -a npm"; which -a npm; echo "which npm"; which npm
 
       - template: templates/cache.yml
         parameters:

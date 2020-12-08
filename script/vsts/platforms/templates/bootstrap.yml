@@ -15,10 +15,18 @@ steps:
         $env:CXX=clang++
         $env:npm_config_clang=1
       }
-      if ($env:AGENT_OS -ne "Windows_NT") {
-        bash -c "hash -d npm" # Clear outdated, hashed npm command
-      }
 
+  - bash: |
+      echo "which -a npm:"
+      which -a npm
+      echo "hash -d npm"
+      hash -d npm # Clear outdated, hashed npm command
+      echo "which -a npm:"
+      which -a npm
+    condition: ne(variables['Agent.OS'], 'Windows_NT')
+    displayName: Check where npm is installed (macOS and Linux)
+
+  - pwsh: |
       # Bootstrap
       script/bootstrap
     displayName: Bootstrap build environment

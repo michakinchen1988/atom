@@ -15,6 +15,9 @@ steps:
         $env:CXX=clang++
         $env:npm_config_clang=1
       }
+      if ($env:AGENT_OS -ne "Windows_NT") {
+        bash -c "hash -d npm" # Clear outdated, hashed npm command
+      }
 
       # Bootstrap
       script/bootstrap

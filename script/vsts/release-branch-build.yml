@@ -5,11 +5,18 @@ trigger:
 pr: none # no PR triggers
 
 jobs:
-  # Import "GetReleaseVersion" job definition
-  - template: platforms/templates/get-release-version.yml
-
-  # Import lint definition
-  - template: lint.yml
+  - job: GetReleaseVersion
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      # This has to be done separately because VSTS inexplicably
+      # exits the script block after `npm ci` completes.
+      - script: |
+          cd script/vsts
+          npm ci
+        displayName: npm ci
+      - script: node script/vsts/get-release-version.js
+        name: Version
 
   # Import OS-specific build definitions.
   - template: platforms/windows.yml
@@ -22,8 +29,7 @@ jobs:
 
     dependsOn:
       - GetReleaseVersion
-      - Lint
-      - Windows_tests
+      - Windows
       - Linux
       - macOS_tests
 
@@ -33,14 +39,19 @@ jobs:
       IsSignedZipBranch: $[ dependencies.GetReleaseVersion.outputs['Version.IsSignedZipBranch'] ]
 
     steps:
-      - template: platforms/templates/preparation.yml
+      - task: NodeTool@0
+        inputs:
+          versionSpec: 12.4.0
+        displayName: Install Node.js 12.4.0
 
+      # This has to be done separately because VSTS inexplicably
+      # exits the script block after `npm ci` completes.
       - script: |
           cd script/vsts
-          npm install
+          npm ci
         env:
           GITHUB_TOKEN: $(GITHUB_TOKEN)
-        displayName: npm install
+        displayName: npm ci
 
       - task: DownloadBuildArtifacts@0
         inputs:

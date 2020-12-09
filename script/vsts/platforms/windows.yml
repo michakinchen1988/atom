@@ -72,6 +72,7 @@ jobs:
           CI_PROVIDER: VSTS
           NPM_BIN_PATH: "C:\\hostedtoolcache\\windows\\node\\12.4.0\\x64\\npm.cmd"
           npm_config_build_from_source: true
+          GITHUB_TOKEN: $(GITHUB_TOKEN)
         displayName: Bootstrap build environment
         condition: ne(variables['CacheRestored'], 'true')
 

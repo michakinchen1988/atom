@@ -267,41 +267,6 @@ function resolveModulePath(relativePath, parentModule) {
   }
 }
 
-function registerBuiltins(devMode) {
-  if (
-    devMode ||
-    !cache.resourcePath.startsWith(`${process.resourcesPath}${path.sep}`)
-  ) {
-    const fs = require('fs-plus');
-    const atomJsPath = path.join(cache.resourcePath, 'exports', 'atom.js');
-    if (fs.isFileSync(atomJsPath)) {
-      cache.builtins.atom = atomJsPath;
-    }
-  }
-  if (cache.builtins.atom == null) {
-    cache.builtins.atom = path.join(cache.resourcePath, 'exports', 'atom.js');
-  }
-
-  const electronAsarRoot = path.join(process.resourcesPath, 'electron.asar');
-
-  const commonRoot = path.join(electronAsarRoot, 'common', 'api');
-  const commonBuiltins = ['clipboard', 'shell'];
-  for (const builtin of commonBuiltins) {
-    cache.builtins[builtin] = path.join(commonRoot, `${builtin}.js`);
-  }
-
-  const rendererRoot = path.join(electronAsarRoot, 'renderer', 'api');
-  const rendererBuiltins = [
-    'crash-reporter',
-    'ipc-renderer',
-    'remote'
-    // 'screen' Deprecated https://www.electronjs.org/docs/breaking-changes#api-changed-electronscreen-in-the-renderer-process-should-be-accessed-via-remote
-  ];
-  for (const builtin of rendererBuiltins) {
-    cache.builtins[builtin] = path.join(rendererRoot, `${builtin}.js`);
-  }
-}
-
 exports.create = function(modulePath) {
   const fs = require('fs-plus');
 
@@ -339,7 +304,6 @@ exports.register = function({ resourcePath, devMode } = {}) {
   cache.registered = true;
   cache.resourcePath = resourcePath;
   cache.resourcePathWithTrailingSlash = `${resourcePath}${path.sep}`;
-  registerBuiltins(devMode);
 };
 
 exports.add = function(directoryPath, metadata) {

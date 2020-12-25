@@ -27,6 +27,7 @@ const net = require('net');
 const url = require('url');
 const { promisify } = require('util');
 const { EventEmitter } = require('events');
+const { performance } = require('perf_hooks');
 const _ = require('underscore-plus');
 let FindParentDir = null;
 let Resolve = null;
@@ -285,7 +286,10 @@ module.exports = class AtomApplication extends EventEmitter {
       socketServerPromise = this.listenForArgumentsFromNewProcess();
     }
 
+    const ti = performance.now();
     await socketServerPromise;
+    console.log(`await socketServerPromise: ${performance.now()-ti} ms`);
+
     this.setupDockMenu();
 
     const result = await this.launch(options);

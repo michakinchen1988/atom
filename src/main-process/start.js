@@ -42,7 +42,11 @@ module.exports = function start(resourcePath, devResourcePath, startTime) {
 
   app.commandLine.appendSwitch('enable-experimental-web-platform-features');
 
-  const args = parseCommandLine(process.argv.slice(1));
+  let filteredArgs = process.argv
+    .slice(1)
+    .filter(arg => !arg.startsWith('-psn_'));
+
+  const args = parseCommandLine(filteredArgs);
   args.resourcePath = normalizeDriveLetterName(resourcePath);
   args.devResourcePath = normalizeDriveLetterName(devResourcePath);
 

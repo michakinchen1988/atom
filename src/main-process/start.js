@@ -44,6 +44,8 @@ module.exports = function start(resourcePath, devResourcePath, startTime) {
 
   let filteredArgs = process.argv
     .slice(1)
+    // macOS Gatekeeper adds a flag ("-psn_0_[six or seven digits here]") when it launches Atom.
+    // We don't need this flag, and it confuses yargs. So we filter it out.
     .filter(arg => !arg.startsWith('-psn_'));
 
   const args = parseCommandLine(filteredArgs);

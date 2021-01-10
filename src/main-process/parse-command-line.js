@@ -186,8 +186,10 @@ module.exports = function parseCommandLine(processArgs) {
   let urlsToOpen = [];
   let devMode = args['dev'];
 
-  for (const path of args._) {
-    if (typeof path !== 'string') {
+  for (let path of args._) {
+    if (typeof path === 'number') {
+      path = String(path);
+    } else if (typeof path !== 'string') {
       continue;
     }
     if (path.startsWith('atom://')) {

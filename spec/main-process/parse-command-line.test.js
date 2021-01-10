@@ -42,16 +42,19 @@ describe('parseCommandLine', () => {
     });
   });
 
-  describe('when evil macOS Gatekeeper flag \(\`-psn_0_[6/7digits]\`\) is passed', () => {
-    it('successfully ignores non-string elements in the yargs "_" non-flag argument array', () => {
-      const psnFlag = `-psn_0_${Math.floor(Math.random()*10_000_000)}`
+  describe('when evil macOS Gatekeeper flag (`-psn_0_[insert PSN here]`) is passed', () => {
+    it('successfully ignores non-string elements in the non-flag argument array', () => {
+      const psnFlag = `-psn_0_${Math.floor(Math.random() * 10_000_000)}`;
       const args = parseCommandLine([
         psnFlag,
         '/some/path',
         'atom://test/url',
         'atom://other/url'
       ]);
-      assert.deepEqual(args.urlsToOpen, ['atom://test/url', 'atom://other/url']);
+      assert.deepEqual(args.urlsToOpen, [
+        'atom://test/url',
+        'atom://other/url'
+      ]);
       assert.deepEqual(args.pathsToOpen, ['/some/path']);
     });
   });

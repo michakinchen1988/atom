@@ -17,7 +17,12 @@ steps:
       }
 
       # Bootstrap
-      script/bootstrap
+      if (($env:AGENT_OS  -eq "Windows_NT") -and ($env:BUILD_ARCH -eq "x86")) {
+        node 'script\vsts\windows-run.js' 'script\bootstrap.cmd'
+      }
+      else {
+        script/bootstrap
+      }
     displayName: Bootstrap build environment
     env:
       GITHUB_TOKEN: $(GITHUB_TOKEN)

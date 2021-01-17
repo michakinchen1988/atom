@@ -31,9 +31,9 @@ steps:
 
   - task: NodeTool@0
     inputs:
-      versionSpec: 12.20.1
+      versionSpec: 14.15.4
       force32bit: $(IsWinX86)
-    displayName: Install Node.js 12.20.1
+    displayName: Install Node.js 14.15.4
 
   - script: npm install --global npm@6.14.8
     displayName: Update npm

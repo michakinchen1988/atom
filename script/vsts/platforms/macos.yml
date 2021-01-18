@@ -108,6 +108,12 @@ jobs:
             - atom-mac-symbols.zip
 
       - pwsh: |
+          cd $(Build.SourcesDirectory)/node_modules/github
+          $(Build.SourcesDirectory)/apm/node_modules/.bin/apm install
+        displayName: Prepare test dependencies for package
+        condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))
+
+      - pwsh: |
           try { dir $(Build.SourcesDirectory) } catch { "dir did not work" }
           try { ls $(Build.SourcesDirectory) } catch { "ls did not work" }
           $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --test $(Build.SourcesDirectory)/node_modules/github/test

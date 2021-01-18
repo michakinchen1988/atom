@@ -91,6 +91,8 @@ jobs:
     variables:
       ATOM_RESOURCE_PATH: $(Build.SourcesDirectory)
       CI: true
+      MOCHA_TIMEOUT: 60000
+      UNTIL_TIMEOUT: 30000
     steps:
       - template: templates/preparation.yml
 

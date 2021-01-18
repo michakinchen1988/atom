@@ -58,6 +58,7 @@ jobs:
         packages-1:
           RunCoreTests: false
           RunPackageTests: 1
+          ATOM_PACKAGES_TO_SKIP: "github"
         packages-2:
           RunCoreTests: false
           RunPackageTests: 2

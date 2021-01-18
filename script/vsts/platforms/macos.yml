@@ -50,7 +50,7 @@ jobs:
     pool:
       vmImage: macos-10.15
     strategy:
-      maxParallel: 4
+      maxParallel: 3
       matrix:
         renderer:
           RunCoreRendererTests: true
@@ -62,10 +62,6 @@ jobs:
         packages-2:
           RunCoreTests: false
           RunPackageTests: 2
-        github:
-          RunCoreTests: false
-          RunPackageTests: 1
-          ATOM_PACKAGES_TO_TEST: "github"
 
     steps:
       - template: templates/preparation.yml
@@ -85,3 +81,44 @@ jobs:
             - atom-mac-symbols.zip
 
       - template: templates/test.yml
+
+  - job: macOS_tests_github
+    displayName: macOS Tests github
+    dependsOn: macOS_build
+    timeoutInMinutes: 180
+    pool:
+      vmImage: macos-10.15
+    variables:
+      ATOM_RESOURCE_PATH: $(Build.SourcesDirectory)
+      CI: true
+      MOCHA_TIMEOUT: 60000
+      UNTIL_TIMEOUT: 30000
+    steps:
+      - template: templates/preparation.yml
+
+      - template: templates/cache.yml
+        parameters:
+          OS: macos
+
+      # The artifact caching task does not work on forks, so we need to
+      # bootstrap again for pull requests coming from forked repositories.
+      - template: templates/bootstrap.yml
+
+      - template: templates/download-unzip.yml
+        parameters:
+          artifacts:
+            - atom-mac.zip
+            - atom-mac-symbols.zip
+
+      - pwsh: |
+          cd $(Build.SourcesDirectory)/node_modules/github
+          $(Build.SourcesDirectory)/apm/node_modules/.bin/apm install
+        displayName: Prepare test dependencies for package
+        condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))
+
+      - pwsh: |
+          try { dir $(Build.SourcesDirectory) } catch { "dir did not work" }
+          try { ls $(Build.SourcesDirectory) } catch { "ls did not work" }
+          $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --test $(Build.SourcesDirectory)/node_modules/github/test
+        displayName: Run tests
+        condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))

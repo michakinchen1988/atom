@@ -117,8 +117,21 @@ jobs:
         condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))
 
       - pwsh: |
-          try { dir $(Build.SourcesDirectory) } catch { "dir did not work" }
-          try { ls $(Build.SourcesDirectory) } catch { "ls did not work" }
+          echo CI env var is set to: $env:CI
+          echo MOCHA_TIMOUT env var is set to: $env:MOCHA_TIMEOUT
+          echo UNTIL_TIMOUT env var is set to: $env:MOCHA_TIMEOUT
+          $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --test $(Build.SourcesDirectory)/node_modules/github/test
+        displayName: Run tests
+        condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))
+        env:
+          CI: true
+          MOCHA_TIMEOUT: 60000
+          UNTIL_TIMEOUT: 30000
+
+      - pwsh: |
+          echo CI env var is set to: $env:CI
+          echo MOCHA_TIMOUT env var is set to: $env:MOCHA_TIMEOUT
+          echo UNTIL_TIMOUT env var is set to: $env:MOCHA_TIMEOUT
           $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --test $(Build.SourcesDirectory)/node_modules/github/test
         displayName: Run tests
         condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))

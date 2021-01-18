@@ -89,6 +89,7 @@ jobs:
     pool:
       vmImage: macos-10.15
     variables:
+      ATOM_RESOURCE_PATH: $(Build.SourcesDirectory)
       CI: true
     steps:
       - template: templates/preparation.yml

@@ -40,7 +40,18 @@ jobs:
           echo CI env var is set to: $env:CI
           echo MOCHA_TIMOUT env var is set to: $env:MOCHA_TIMEOUT
           echo UNTIL_TIMOUT env var is set to: $env:UNTIL_TIMEOUT
-          $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --test $(Build.SourcesDirectory)/node_modules/github/test
+          Set-Variable -Name "timesTriedToTest" -Value "0"
+          while($timesTriedToTest -lt 6) {
+            if ( $timesTriedToTest -ne 0 ) {
+              echo "Re-trying tests."
+            } 
+            $timesTriedToTest++
+            try {
+              $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --test $(Build.SourcesDirectory)/node_modules/github/test
+            } catch {
+              "Tests exited with a non-zero exit status (perhaps a timeout) or an unhandled error occurred."
+            }
+          }
         displayName: Run tests
         condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))
         env:
@@ -53,7 +64,18 @@ jobs:
           echo CI env var is set to: $env:CI
           echo MOCHA_TIMOUT env var is set to: $env:MOCHA_TIMEOUT
           echo UNTIL_TIMOUT env var is set to: $env:UNTIL_TIMEOUT
-          $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --test $(Build.SourcesDirectory)/node_modules/github/test
+          Set-Variable -Name "timesTriedToTest" -Value "0"
+          while($timesTriedToTest -lt 6) {
+            if ( $timesTriedToTest -ne 0 ) {
+              echo "Re-trying tests."
+            } 
+            $timesTriedToTest++
+            try {
+              $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --test $(Build.SourcesDirectory)/node_modules/github/test
+            } catch {
+              "Tests exited with a non-zero exit status (perhaps a timeout) or an unhandled error occurred."
+            }
+          }
         displayName: Run tests with env items explicitly passed.
         condition: ne(variables['Atom.SkipTests'], 'true')
        # REDUNDANT -- DELETEME BEFORE MERGING #

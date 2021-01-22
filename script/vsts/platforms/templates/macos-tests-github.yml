@@ -86,4 +86,4 @@ jobs:
           rm node_modules -recurse -force
           mv node_modules.bak node_modules
         displayName: Restore original dependencies for package
-        condition: ne(variables['Atom.SkipTests'], 'true'))
+        condition: ne(variables['Atom.SkipTests'], 'true')

@@ -48,13 +48,15 @@ jobs:
           MOCHA_TIMEOUT: 60000
           UNTIL_TIMEOUT: 30000
 
+      # REDUNDANT -- DELETEME BEFORE MERGING #
       - pwsh: |
           echo CI env var is set to: $env:CI
           echo MOCHA_TIMOUT env var is set to: $env:MOCHA_TIMEOUT
           echo UNTIL_TIMOUT env var is set to: $env:UNTIL_TIMEOUT
           $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --test $(Build.SourcesDirectory)/node_modules/github/test
-        displayName: Run tests
+        displayName: Run tests with env items explicitly passed.
         condition: ne(variables['Atom.SkipTests'], 'true')
+       # REDUNDANT -- DELETEME BEFORE MERGING #
 
       - pwsh: |
           cd $(Build.SourcesDirectory)/node_modules/github

@@ -342,7 +342,7 @@ function getPackageTestSuites() {
         } else {
           finalize = () => fs.removeSync(nodeModulesPath);
         }
-        runApmInstall(repositoryPackagePath);
+        runApmInstall(repositoryPackagePath, 'ci');
         console.log(`##[command] Executing ${packageName} tests`.green);
       } else {
         console.log(`##[command] Executing ${packageName} tests`.bold.green);

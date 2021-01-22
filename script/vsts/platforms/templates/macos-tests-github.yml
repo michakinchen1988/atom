@@ -54,7 +54,7 @@ jobs:
           echo UNTIL_TIMOUT env var is set to: $env:UNTIL_TIMEOUT
           $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --test $(Build.SourcesDirectory)/node_modules/github/test
         displayName: Run tests
-        condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))
+        condition: ne(variables['Atom.SkipTests'], 'true')
 
       - pwsh: |
           cd $(Build.SourcesDirectory)/node_modules/github

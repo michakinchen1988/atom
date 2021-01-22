@@ -29,6 +29,9 @@ jobs:
 
       - pwsh: |
           cd $(Build.SourcesDirectory)/node_modules/github
+          echo "Moving node_modules to node_modules.bak"
+          mv node_modules node_modules.bak
+          echo "Installing test runner dependencies for the github package"
           $(Build.SourcesDirectory)/apm/node_modules/.bin/apm install
         displayName: Prepare test dependencies for package
         condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))
@@ -52,3 +55,11 @@ jobs:
           $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --test $(Build.SourcesDirectory)/node_modules/github/test
         displayName: Run tests
         condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))
+
+      - pwsh: |
+          cd $(Build.SourcesDirectory)/node_modules/github
+          echo "Restoring node_modules from node_modules.bak"
+          rm node_modules -recurse -force
+          mv node_modules.bak node_modules
+        displayName: Restore original dependencies for package
+        condition: ne(variables['Atom.SkipTests'], 'true'))

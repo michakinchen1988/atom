@@ -68,10 +68,6 @@ const CONFIG = require('./config')
 // Used by the 'github' package for Babel configuration
 process.env.ELECTRON_VERSION = CONFIG.appMetadata.electronVersion
 
-if (process.env.npm_config_jobs === undefined) {
-  process.env.npm_config_jobs = "max"
-}
-
 let binariesPromise = Promise.resolve()
 
 if (!argv.existingBinaries) {

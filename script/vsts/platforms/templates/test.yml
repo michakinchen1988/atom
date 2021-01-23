@@ -1,9 +1,20 @@
+parameters:
+  - name: UseBundledResources
+    type: boolean
+    default: false
+
 steps:
   - pwsh: |
       # OS specific env variables
       if ($env:AGENT_OS -eq "Linux") {
         $env:DISPLAY=":99.0"
         $env:npm_config_build_from_source=true
+      }
+
+      if ( ${{ parameters.UseBundledResources }} ) {
+        # Makes the packaged Atom app use its bundled packages and code, rather than load them live from the repository.
+        mkdir not_the_repository_root
+        cd not_the_repository_root
       }
 
       # Test

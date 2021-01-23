@@ -11,18 +11,21 @@ steps:
         $env:npm_config_build_from_source=true
       }
 
+      $env:BUNDLED_RESOURCES_FLAG = ''
+
       if ( $${{ parameters.UseBundledResources }} -eq $True ) {
         # Makes the packaged Atom app use its bundled packages and code, rather than load them live from the repository.
         mkdir not_the_repository_root
         cd not_the_repository_root
+        $env:BUNDLED_RESOURCES_FLAG = '--bundled-resources'
       }
 
       # Test
       if ($env:AGENT_OS -eq "Darwin") {
         osascript -e 'tell application "System Events" to keystroke "x"' # clear screen saver
-        caffeinate -s $(Build.SourcesDirectory)/script/test # Run with caffeinate to prevent screen saver
+        caffeinate -s $(Build.SourcesDirectory)/script/test $env:BUNDLED_RESOURCES_FLAG # Run with caffeinate to prevent screen saver
       } else {
-        $(Build.SourcesDirectory)/script/test
+        $(Build.SourcesDirectory)/script/test $env:BUNDLED_RESOURCES_FLAG
       }
     env:
       CI: true

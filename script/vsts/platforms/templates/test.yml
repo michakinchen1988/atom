@@ -1,18 +1,18 @@
 steps:
-  - pwsh: |
+  - bash: |
       # OS specific env variables
-      if ($env:AGENT_OS -eq "Linux") {
-        $env:DISPLAY=":99.0"
-        $env:npm_config_build_from_source=true
-      }
+      if [ $AGENT_OS = "Linux" ]; then
+        export DISPLAY=":99.0"
+        export npm_config_build_from_source=true
+      fi
 
       # Test
-      if ($env:AGENT_OS -eq "Darwin") {
+      if [ $AGENT_OS = "Darwin"]; then
         osascript -e 'tell application "System Events" to keystroke "x"' # clear screen saver
         caffeinate -s script/test # Run with caffeinate to prevent screen saver
-      } else {
+      else
         script/test
-      }
+      fi
     env:
       CI: true
       CI_PROVIDER: VSTS

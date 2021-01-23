@@ -11,6 +11,7 @@ steps:
         $env:npm_config_build_from_source=true
       }
 
+      $env:ORIGINAL_WORKING_DIR = pwd
       $env:BUNDLED_RESOURCES_FLAG = ''
 
       if ( $${{ parameters.UseBundledResources }} -eq $True ) {
@@ -27,6 +28,8 @@ steps:
       } else {
         $(Build.SourcesDirectory)/script/test $env:BUNDLED_RESOURCES_FLAG
       }
+
+      cd $env:ORIGINAL_WORKING_DIR
     env:
       CI: true
       CI_PROVIDER: VSTS

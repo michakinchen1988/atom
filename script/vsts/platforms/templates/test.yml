@@ -16,8 +16,8 @@ steps:
 
       if ( $${{ parameters.UseBundledResources }} -eq $True ) {
         # Makes the packaged Atom app use its bundled packages and code, rather than load them live from the repository.
-        mkdir not_the_repository_root
-        cd not_the_repository_root
+        mkdir NOT_REPO_ROOT
+        cd NOT_REPO_ROOT
         $env:BUNDLED_RESOURCES_FLAG = '--bundled-resources'
       }
 
@@ -30,6 +30,7 @@ steps:
       }
 
       cd $env:ORIGINAL_WORKING_DIR
+      Remove-Item -Recurse -Force NOT_REPO_ROOT
     env:
       CI: true
       CI_PROVIDER: VSTS

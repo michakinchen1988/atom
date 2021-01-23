@@ -25,10 +25,6 @@ jobs:
     steps:
       - template: templates/preparation.yml
 
-      - template: templates/cache.yml
-        parameters:
-          OS: windows
-
       - template: templates/bootstrap.yml
 
       - template: templates/build.yml
@@ -94,10 +90,6 @@ jobs:
 
     steps:
       - template: templates/preparation.yml
-
-      - template: templates/cache.yml
-        parameters:
-          OS: windows
 
       - template: templates/bootstrap.yml
 

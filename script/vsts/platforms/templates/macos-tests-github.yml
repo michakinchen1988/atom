@@ -47,7 +47,7 @@ jobs:
             } 
             $timesTriedToTest++
             try {
-              $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --test $(Build.SourcesDirectory)/node_modules/github/test
+              $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --test $(Build.SourcesDirectory)/node_modules/github/test
             } catch {
               "Tests exited with a non-zero exit status (perhaps a timeout) or an unhandled error occurred."
             }
@@ -71,7 +71,7 @@ jobs:
             } 
             $timesTriedToTest++
             try {
-              $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --test $(Build.SourcesDirectory)/node_modules/github/test
+              $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --test $(Build.SourcesDirectory)/node_modules/github/test
             } catch {
               "Tests exited with a non-zero exit status (perhaps a timeout) or an unhandled error occurred."
             }

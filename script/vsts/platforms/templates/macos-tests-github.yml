@@ -6,7 +6,9 @@ jobs:
     pool:
       vmImage: macos-10.15
     variables:
+      ATOM_PACKAGES_TO_TEST: 'github'
       ATOM_RESOURCE_PATH: $(Build.SourcesDirectory)
+      ATOM_RUN_PACKAGE_TESTS: 'true'
       CI: true
       MOCHA_TIMEOUT: 60000
       UNTIL_TIMEOUT: 60000
@@ -27,63 +29,6 @@ jobs:
             - atom-mac.zip
             - atom-mac-symbols.zip
 
-      - pwsh: |
-          cd $(Build.SourcesDirectory)/node_modules/github
-          echo "Moving node_modules to node_modules.bak"
-          mv node_modules node_modules.bak
-          echo "Installing test runner dependencies for the github package"
-          $(Build.SourcesDirectory)/apm/node_modules/.bin/apm install
-        displayName: Prepare test dependencies for package
-        condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))
-
-      - pwsh: |
-          echo CI env var is set to: $env:CI
-          echo MOCHA_TIMOUT env var is set to: $env:MOCHA_TIMEOUT
-          echo UNTIL_TIMOUT env var is set to: $env:UNTIL_TIMEOUT
-          Set-Variable -Name "timesTriedToTest" -Value 0
-          while($timesTriedToTest -lt 6) {
-            if ( $timesTriedToTest -ne 0 ) {
-              echo "Re-trying tests."
-            } 
-            $timesTriedToTest++
-            try {
-              $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --test $(Build.SourcesDirectory)/node_modules/github/test
-            } catch {
-              "Tests exited with a non-zero exit status (perhaps a timeout) or an unhandled error occurred."
-            }
-          }
-        displayName: Run tests
-        condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))
-        env:
-          CI: true
-          MOCHA_TIMEOUT: 60000
-          UNTIL_TIMEOUT: 30000
-
-      # REDUNDANT -- DELETEME BEFORE MERGING #
-      - pwsh: |
-          echo CI env var is set to: $env:CI
-          echo MOCHA_TIMOUT env var is set to: $env:MOCHA_TIMEOUT
-          echo UNTIL_TIMOUT env var is set to: $env:UNTIL_TIMEOUT
-          Set-Variable -Name "timesTriedToTest" -Value 0
-          while($timesTriedToTest -lt 6) {
-            if ( $timesTriedToTest -ne 0 ) {
-              echo "Re-trying tests."
-            } 
-            $timesTriedToTest++
-            try {
-              $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --test $(Build.SourcesDirectory)/node_modules/github/test
-            } catch {
-              "Tests exited with a non-zero exit status (perhaps a timeout) or an unhandled error occurred."
-            }
-          }
-        displayName: Run tests with env items explicitly passed.
-        condition: ne(variables['Atom.SkipTests'], 'true')
-       # REDUNDANT -- DELETEME BEFORE MERGING #
-
-      - pwsh: |
-          cd $(Build.SourcesDirectory)/node_modules/github
-          echo "Restoring node_modules from node_modules.bak"
-          rm node_modules -recurse -force
-          mv node_modules.bak node_modules
-        displayName: Restore original dependencies for package
-        condition: ne(variables['Atom.SkipTests'], 'true')
+      - template: ./test.yml
+        parameters:
+          UseBundledResources: true

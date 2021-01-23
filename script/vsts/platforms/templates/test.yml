@@ -11,7 +11,7 @@ steps:
         $env:npm_config_build_from_source=true
       }
 
-      if ( ${{ parameters.UseBundledResources }} ) {
+      if ( $${{ parameters.UseBundledResources }} -eq $True ) {
         # Makes the packaged Atom app use its bundled packages and code, rather than load them live from the repository.
         mkdir not_the_repository_root
         cd not_the_repository_root

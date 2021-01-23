@@ -51,6 +51,6 @@ steps:
 
   - pwsh: |
       cd script/vsts
-      npm install
+      npm ci
     displayName: Install script/vsts dependencies on Windows
     condition: eq(variables['Agent.OS'], 'Windows_NT')

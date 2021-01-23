@@ -31,6 +31,11 @@ const argv = require('yargs')
     boolean: true,
     default: false
   })
+  .option('bundled-resources', {
+    describe: 'Run tests with Atom\'s bundled packages and code, rather than loading them live from the repository (does not work when run from the root of the Atom repository)',
+    boolean: true,
+    default: false
+  })
   .help().argv;
 
 const assert = require('assert');
@@ -236,12 +241,14 @@ function shouldTryAgain(testKey) {
 function runCoreMainProcessTests(callback) {
   const testPath = path.join(CONFIG.repositoryRootPath, 'spec', 'main-process');
   const testArguments = [
-    '--resource-path',
-    resourcePath,
     '--test',
     '--main-process',
     testPath
   ];
+
+  if (!argv.bundledResources) {
+    testArguments.unshift('--resource-path', resourcePath)
+  }
 
   if (process.env.CI && process.platform === 'linux') {
     testArguments.push('--no-sandbox');
@@ -269,7 +276,10 @@ function getCoreRenderProcessTestSuites() {
     path.join(testPath, '*-spec.+(js|coffee|ts|jsx|tsx|mjs)')
   );
   for (let testFile of testFiles) {
-    const testArguments = ['--resource-path', resourcePath, '--test', testFile];
+    const testArguments = ['--test', testFile];
+    if (!argv.bundledResources) {
+      testArguments.unshift('--resource-path', resourcePath)
+    }
     // the function which runs by async:
     coreRenderProcessTestSuites.push(function(callback) {
       const testEnv = prepareEnv('core-render-process');
@@ -324,11 +334,13 @@ function getPackageTestSuites() {
     const testFolder = path.join(repositoryPackagePath, testSubdir);
 
     const testArguments = [
-      '--resource-path',
-      resourcePath,
       '--test',
       testFolder
     ];
+
+    if (!argv.bundledResources) {
+      testArguments.unshift('--resource-path', resourcePath)
+    }
 
     const pkgJsonPath = path.join(repositoryPackagePath, 'package.json');
     const nodeModulesPath = path.join(repositoryPackagePath, 'node_modules');

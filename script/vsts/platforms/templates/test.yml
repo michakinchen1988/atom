@@ -9,9 +9,9 @@ steps:
       # Test
       if ($env:AGENT_OS -eq "Darwin") {
         osascript -e 'tell application "System Events" to keystroke "x"' # clear screen saver
-        caffeinate -s script/test # Run with caffeinate to prevent screen saver
+        caffeinate -s $(Build.SourcesDirectory)/script/test # Run with caffeinate to prevent screen saver
       } else {
-        script/test
+        $(Build.SourcesDirectory)/script/test
       }
     env:
       CI: true
@@ -26,7 +26,7 @@ steps:
     condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))
 
   # Test results
-  - pwsh: script/postprocess-junit-results --search-folder "$env:TEST_JUNIT_XML_ROOT" --test-results-files "**/*.xml"
+  - pwsh: $(Build.SourcesDirectory)/script/postprocess-junit-results --search-folder "$env:TEST_JUNIT_XML_ROOT" --test-results-files "**/*.xml"
     env:
       TEST_JUNIT_XML_ROOT: $(Common.TestResultsDirectory)/junit
     displayName: Post-process test results

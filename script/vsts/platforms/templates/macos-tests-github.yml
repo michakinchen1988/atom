@@ -8,6 +8,7 @@ jobs:
     variables:
       ATOM_RESOURCE_PATH: $(Build.SourcesDirectory)
       CI: true
+      CI_PROVIDER: VSTS
       MOCHA_TIMEOUT: 60000
       UNTIL_TIMEOUT: 30000
     steps:

@@ -23,9 +23,6 @@ jobs:
 
       - template: templates/build.yml
 
-      # core main tests
-      - template: templates/test.yml
-
       - script: |
           cp $(Build.SourcesDirectory)/out/*.zip $(Build.ArtifactStagingDirectory)
         displayName: Stage Artifacts

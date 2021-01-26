@@ -29,12 +29,6 @@ jobs:
             - atom-mac-symbols.zip
 
       - pwsh: |
-          cd $(Build.SourcesDirectory)/node_modules/github
-          $(Build.SourcesDirectory)/apm/node_modules/.bin/apm install
-        displayName: Prepare test dependencies for package
-        condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))
-
-      - pwsh: |
           echo "CI env var is set to: $env:CI"
           echo "MOCHA_TIMOUT env var is set to: $env:MOCHA_TIMEOUT"
           echo "UNTIL_TIMOUT env var is set to: $env:UNTIL_TIMEOUT"
@@ -48,7 +42,7 @@ jobs:
             }
 
             try {
-              $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --test $(Build.SourcesDirectory)/node_modules/github/test
+              $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --main-process --test $(Build.SourcesDirectory)/spec/main-process
             } catch {
               # Try again if tests failed
               $timesTriedToTest++
@@ -60,11 +54,3 @@ jobs:
           }
         displayName: Run tests
         condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))
-
-      - pwsh: |
-          echo CI env var is set to: $env:CI
-          echo MOCHA_TIMOUT env var is set to: $env:MOCHA_TIMEOUT
-          echo UNTIL_TIMOUT env var is set to: $env:UNTIL_TIMEOUT
-          $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --test $(Build.SourcesDirectory)/node_modules/github/test
-        displayName: Run tests
-        condition: ne(variables['Atom.SkipTests'], 'true')

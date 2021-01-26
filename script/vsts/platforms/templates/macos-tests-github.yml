@@ -39,17 +39,23 @@ jobs:
           echo "MOCHA_TIMOUT env var is set to: $env:MOCHA_TIMEOUT"
           echo "UNTIL_TIMOUT env var is set to: $env:UNTIL_TIMEOUT"
           Set-Variable -Name "timesTriedToTest" -Value "0"
+
+          # Try testing up to 6 times if any tests fail
           while ( $timesTriedToTest -lt 6 ) {
             echo "Running tests for the github package"
             if ( $timesTriedToTest -gt 0 ) {
               echo "Attempt number: $timesTriedToTest + 1"
             }
+
             try {
               $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --test $(Build.SourcesDirectory)/node_modules/github/test
             } catch {
+              # Try again if tests failed
               $timesTriedToTest++
               continue
             }
+
+            # Exit the loop if tests passed
             break
           }
         displayName: Run tests

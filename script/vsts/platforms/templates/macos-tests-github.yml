@@ -48,7 +48,9 @@ jobs:
               $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --test $(Build.SourcesDirectory)/node_modules/github/test
             } catch {
               $timesTriedToTest++
+              continue
             }
+            break
           }
         displayName: Run tests
         condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))

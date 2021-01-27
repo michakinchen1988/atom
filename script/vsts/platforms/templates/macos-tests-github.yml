@@ -41,7 +41,7 @@ jobs:
             echo "Running tests for the github package"
             if ( $timesTriedToTest -gt 0 ) {
               echo "At: inside the if block when timesTriedToTest is greater than zero"
-              echo "Attempt number: $timesTriedToTest + 1"
+              echo "Attempt number $($timesTriedToTest + 1)"
             }
 
             $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --main-process --test $(Build.SourcesDirectory)/spec/main-process

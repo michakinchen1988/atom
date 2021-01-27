@@ -38,7 +38,7 @@ describe('parseCommandLine', () => {
       assert.isUndefined(args.safeMode);
       assert.isUndefined(args.test);
       assert.deepEqual(args.urlsToOpen, ['atom://test/url']);
-      assert.deepEqual(args.pathsToOpen, ['hello']);
+      assert.deepEqual(args.pathsToOpen, []);
     });
   });
 });

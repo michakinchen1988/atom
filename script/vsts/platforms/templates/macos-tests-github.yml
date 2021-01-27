@@ -44,19 +44,18 @@ jobs:
               echo "Attempt number: $timesTriedToTest + 1"
             }
 
-            try {
-              echo "At: inside the try block"
-              $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --main-process --test $(Build.SourcesDirectory)/spec/main-process
-            } catch {
-              echo "At: inside the catch block"
+            $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --main-process --test $(Build.SourcesDirectory)/spec/main-process
+
+            if ( $LastExitCode -ne 0 ) {
+              echo "At: inside the if LastExitCode does not equal zero block"
               # Try again if tests failed
               $timesTriedToTest++
               continue
+            } else {
+              echo "At: inside the else block before breaking out of the loop"
+              # Exit the loop if tests passed
+              break
             }
-
-            echo "At: after the catch block, before breaking out of the while loop"
-            # Exit the loop if tests passed
-            break
           }
           echo "At: After the while loop"
         errorActionPreference: continue

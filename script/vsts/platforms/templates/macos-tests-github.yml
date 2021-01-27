@@ -35,7 +35,7 @@ jobs:
 
           # Run tests, retrying up to 6 times if any tests fail
           for ( $timesTriedToTest = 1; $timesTriedToTest -le 6; $timesTriedToTest++ ) {
-            echo "Running tests for the github package `(attempt number $($timesTriedToTest)`)"
+            echo "##[Command]Running tests for the github package `(attempt number $($timesTriedToTest)`)"
 
             # Run tests
             $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --main-process --test $(Build.SourcesDirectory)/spec/main-process

@@ -32,7 +32,7 @@ jobs:
           echo "CI env var is set to: $env:CI"
           echo "MOCHA_TIMOUT env var is set to: $env:MOCHA_TIMEOUT"
           echo "UNTIL_TIMOUT env var is set to: $env:UNTIL_TIMEOUT"
-          Set-Variable -Name "timesTriedToTest" -Value "0"
+          Set-Variable -Name "timesTriedToTest" -Value 0
 
           echo "At: before the while loop"
           # Try testing up to 6 times if any tests fail

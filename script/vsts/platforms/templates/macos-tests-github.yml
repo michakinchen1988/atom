@@ -32,7 +32,7 @@ jobs:
           echo "CI env var is set to: $env:CI"
           echo "MOCHA_TIMOUT env var is set to: $env:MOCHA_TIMEOUT"
           echo "UNTIL_TIMOUT env var is set to: $env:UNTIL_TIMEOUT"
-          Set-Variable -Name "timesTriedToTest" -Value 0
+          $timesTriedToTest = 0
 
           echo "At: before the while loop"
           # Try testing up to 6 times if any tests fail
@@ -46,16 +46,15 @@ jobs:
 
             $(Build.SourcesDirectory)/out/Atom*.app/Contents/MacOS/Atom* --resource-path $(Build.SourcesDirectory) --main-process --test $(Build.SourcesDirectory)/spec/main-process
 
-            if ( $LastExitCode -ne 0 ) {
-              echo "At: inside the if LastExitCode does not equal zero block"
-              # Try again if tests failed
-              $timesTriedToTest++
-              continue
-            } else {
-              echo "At: inside the else block before breaking out of the loop"
+            if ( $LastExitCode -eq 0 ) {
+              echo "At: inside the if LastExitCode equals zero block before breaking out of the loop"
               # Exit the loop if tests passed
               break
             }
+
+            echo "At: After the  the if LastExitCode equals zero block"
+            # Try again if tests failed
+            $timesTriedToTest++
           }
           echo "At: After the while loop"
         errorActionPreference: continue

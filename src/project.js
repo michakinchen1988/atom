@@ -350,9 +350,17 @@ module.exports = class Project extends Model {
   // Public: Get an {Array} of {String}s containing the paths of the project's
   // directories.
   getPaths() {
-    try {
-      return this.rootDirectories.map(rootDirectory => rootDirectory.getPath());
-    } catch (e) {
+    let failedToGetPaths = false;
+
+    return this.rootDirectories.forEach(rootDirectory => {
+      try {
+        return rootDirectory.getPath();
+      } catch (e) {
+        failedToGetPaths = true;
+      }
+    });
+
+    if (failedToGetPaths === true) {
       atom.notifications.addError(
         "Please clear Atom's window state with: atom --clear-window-state"
       );

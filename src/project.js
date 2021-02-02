@@ -351,10 +351,11 @@ module.exports = class Project extends Model {
   // directories.
   getPaths() {
     let failedToGetPaths = false;
+    const projectDirectories = [];
 
-    return this.rootDirectories.forEach(rootDirectory => {
+    this.rootDirectories.forEach(rootDirectory => {
       try {
-        return rootDirectory.getPath();
+        projectDirectories.push(rootDirectory.getPath());
       } catch (e) {
         failedToGetPaths = true;
       }
@@ -365,6 +366,8 @@ module.exports = class Project extends Model {
         "Please clear Atom's window state with: atom --clear-window-state"
       );
     }
+
+    return projectDirectories;
   }
 
   // Public: Set the paths of the project's directories.

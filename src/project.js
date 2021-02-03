@@ -350,13 +350,7 @@ module.exports = class Project extends Model {
   // Public: Get an {Array} of {String}s containing the paths of the project's
   // directories.
   getPaths() {
-    try {
-      return this.rootDirectories.map(rootDirectory => rootDirectory.getPath());
-    } catch (e) {
-      atom.notifications.addError(
-        "Please clear Atom's window state with: atom --clear-window-state"
-      );
-    }
+    return this.rootDirectories.map(rootDirectory => rootDirectory.getPath());
   }
 
   // Public: Set the paths of the project's directories.

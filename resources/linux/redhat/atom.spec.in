@@ -13,6 +13,10 @@ Requires: lsb-core-noarch, libXss.so.1 libsecret-1.so.0, polkit
 Requires: lsb-core-noarch, libXss.so.1()(64bit) libsecret-1.so.0()(64bit), polkit
 %endif
 
+# Disable the strict "ambiguous Python shebangs are an error" policy
+# See: https://github.com/atom/atom/issues/21937
+%undefine __brp_mangle_shebangs
+
 %description
 <%= description %>
 

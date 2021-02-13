@@ -7,15 +7,13 @@ URL:            https://atom.io/
 AutoReqProv:    no # Avoid libchromiumcontent.so missing dependency
 Prefix:         <%= installDir %>
 
+BuildRequires: /usr/bin/pathfix.py
+
 %ifarch i386 i486 i586 i686
 Requires: lsb-core-noarch, libXss.so.1 libsecret-1.so.0, polkit
 %else
 Requires: lsb-core-noarch, libXss.so.1()(64bit) libsecret-1.so.0()(64bit), polkit
 %endif
-
-# Disable the strict "ambiguous Python shebangs are an error" policy
-# See: https://github.com/atom/atom/issues/21937
-%undefine __brp_mangle_shebangs
 
 %description
 <%= description %>
@@ -50,6 +48,11 @@ mkdir -p "%{buildroot}/<%= installDir %>/share/icons/hicolor/24x24/apps"
 cp "icons/24.png" "%{buildroot}/<%= installDir %>/share/icons/hicolor/24x24/apps/<%= appFileName %>.png"
 mkdir -p "%{buildroot}/<%= installDir %>/share/icons/hicolor/16x16/apps"
 cp "icons/16.png" "%{buildroot}/<%= installDir %>/share/icons/hicolor/16x16/apps/<%= appFileName %>.png"
+
+# "ambiguous Python shebangs are an error"
+# See: https://github.com/atom/atom/issues/21937
+# and https://fedoraproject.org/wiki/Changes/Make_ambiguous_python_shebangs_error
+%py3_shebang_fix "%{buildroot}/"
 
 %files
 <%= installDir %>/bin/<%= appFileName %>

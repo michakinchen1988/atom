@@ -27,7 +27,7 @@
     "atom-light-ui": "file:packages/atom-light-ui",
     "atom-select-list": "^0.7.2",
     "autocomplete-atom-api": "https://www.atom.io/api/packages/autocomplete-atom-api/versions/0.10.7/tarball",
-    "autocomplete-css": "https://www.atom.io/api/packages/autocomplete-css/versions/0.17.5/tarball",
+    "autocomplete-css": "https://github.com/DeeDeeG/autocomplete-css/tarball/update-completions_json",
     "autocomplete-html": "https://www.atom.io/api/packages/autocomplete-html/versions/0.8.8/tarball",
     "autocomplete-plus": "https://www.atom.io/api/packages/autocomplete-plus/versions/2.42.3/tarball",
     "autocomplete-snippets": "https://www.atom.io/api/packages/autocomplete-snippets/versions/1.12.1/tarball",

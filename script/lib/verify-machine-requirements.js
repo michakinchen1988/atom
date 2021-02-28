@@ -4,6 +4,8 @@ const childProcess = require('child_process');
 const path = require('path');
 
 const CONFIG = require('../config');
+const isCi = process.argv.indexOf('--ci') !== 0 || process.env.CI;
+const npmBinPath = CONFIG.getNpmBinPath(isCi);
 
 module.exports = function(ci) {
   verifyNode();
@@ -29,11 +31,7 @@ function verifyNode() {
 }
 
 function verifyNpm(ci) {
-  const stdout = childProcess.execFileSync(
-    CONFIG.getNpmBinPath(ci),
-    ['--version'],
-    { env: process.env }
-  );
+  const stdout = childProcess.execFileSync(npmBinPath, ['--version']);
   const fullVersion = stdout.toString().trim();
   const majorVersion = fullVersion.split('.')[0];
   const oldestMajorVersionSupported = ci ? 6 : 3;
@@ -62,6 +60,14 @@ function verifyPython() {
   // node-gyp 7.x stopped using the "-2" flag for "py.exe",
   // so as to allow finding Python 3 as well, not just Python 2.
   // https://github.com/nodejs/node-gyp/blob/master/CHANGELOG.md#v700-2020-06-03
+
+  const npmConfigPython =
+    process.env.npm_config_python ||
+    process.env.NPM_CONFIG_PYTHON ||
+    childProcess
+      .execFileSync(npmBinPath, ['config', 'get', 'python'])
+      .toString()
+      .trim();
 
   let stdout;
   let fullVersion;
@@ -141,10 +147,13 @@ function verifyPython() {
     }
   }
 
-  // These first two checks do nothing if the relevant
-  // environment variables aren't set.
+  // These first three checks do nothing if the relevant
+  // environment variables or configs aren't set.
   verifyForcedBinary(process.env.NODE_GYP_FORCE_PYTHON);
   // All the following checks will no-op if a previous check has succeeded.
+  if (npmConfigPython && npmConfigPython !== 'undefined') {
+    verifyBinary(npmConfigPython);
+  }
   verifyBinary(process.env.PYTHON);
   verifyBinary('python');
   verifyBinary('python2');

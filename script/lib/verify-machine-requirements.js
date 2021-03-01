@@ -175,10 +175,11 @@ function verifyPython() {
   } else {
     throw new Error(
       `\n${triedLog}\n` +
-        'Python 2.6, 2.7 or 3.5+ is required to build Atom.\n' +
-        'verify-machine-requirements.js was unable to find such a version of Python.\n' +
-        "Set the PYTHON env var to e.g. 'C:/path/to/Python27/python.exe'\n" +
-        'if your Python is installed in a non-default location.\n'
+        `Python 2.6, 2.7 or 3.5+ is required to build Atom.\n` +
+        `verify-machine-requirements.js was unable to find such a version of Python.\n\n` +
+        `Set the PYTHON env var to e.g. 'C:/path/to/Python27/python.exe',\n` +
+        `or do \`npm config set python=\"/path/to/python\",\n` +
+        `if your Python is installed in a non-default location.`
     );
   }
 }

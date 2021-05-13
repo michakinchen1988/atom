@@ -10,6 +10,17 @@ steps:
     displayName: Install apt dependencies
     condition: eq(variables['Agent.OS'], 'Linux')
 
+  - script: |
+      mkdir bionic_rpm_debs && cd bionic_rpm_debs
+      for deb_URL in `cat ../script/vsts/bionic-rpm-deb-urls.txt`
+      do
+        echo "Downloading ${deb_URL}..."
+        curl -L "${deb_URL}" -O
+      done
+      sudo apt install -y ./*.deb
+      cd -
+    displayName: Install newer rpm from Bionic repos
+    condition: eq(variables['Agent.OS'], 'Linux')
 
   - script: sudo /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
     displayName: Start Xvfb

@@ -1,0 +1,12 @@
+mirrors.kernel.org/ubuntu/pool/universe/r/rpm/debugedit_4.14.1+dfsg1-2_amd64.deb
+security.ubuntu.com/ubuntu/pool/main/e/elfutils/libdw1_0.170-0.4ubuntu0.1_amd64.deb
+security.ubuntu.com/ubuntu/pool/main/e/elfutils/libelf1_0.170-0.4ubuntu0.1_amd64.deb
+mirrors.kernel.org/ubuntu/pool/main/x/xz-utils/liblzma5_5.2.2-1.3_amd64.deb
+mirrors.kernel.org/ubuntu/pool/universe/r/rpm/librpm8_4.14.1+dfsg1-2_amd64.deb
+mirrors.kernel.org/ubuntu/pool/universe/r/rpm/librpmbuild8_4.14.1+dfsg1-2_amd64.deb
+mirrors.kernel.org/ubuntu/pool/universe/r/rpm/librpmio8_4.14.1+dfsg1-2_amd64.deb
+mirrors.kernel.org/ubuntu/pool/universe/r/rpm/librpmsign8_4.14.1+dfsg1-2_amd64.deb
+security.ubuntu.com/ubuntu/pool/main/libz/libzstd/libzstd1_1.3.3+dfsg-2ubuntu1.2_amd64.deb
+mirrors.kernel.org/ubuntu/pool/universe/r/rpm/rpm2cpio_4.14.1+dfsg1-2_amd64.deb
+mirrors.kernel.org/ubuntu/pool/universe/r/rpm/rpm_4.14.1+dfsg1-2_amd64.deb
+mirrors.kernel.org/ubuntu/pool/universe/r/rpm/rpm-common_4.14.1+dfsg1-2_amd64.deb

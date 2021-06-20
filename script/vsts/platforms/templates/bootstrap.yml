@@ -10,7 +10,7 @@ steps:
         $env:npm_config_build_from_source=true
       }
       if ($env:AGENT_OS -eq "Linux") {
-        $env:NPM_BIN_PATH="/usr/local/bin/npm"
+        $env:NPM_BIN_PATH=(which npm)
         $env:CC=clang
         $env:CXX=clang++
         $env:npm_config_clang=1

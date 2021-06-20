@@ -46,7 +46,7 @@ steps:
       ATOM_WIN_CODE_SIGNING_CERT_PASSWORD: $(ATOM_WIN_CODE_SIGNING_CERT_PASSWORD)
 
   - script: |
-      chown root ./out/atom*-amd64/chrome-sandbox
-      chmod 4755 ./out/atom*-amd64/chrome-sandbox
+      sudo chown root ./out/atom*-amd64/chrome-sandbox
+      sudo chmod 4755 ./out/atom*-amd64/chrome-sandbox
     displayName: Tweaking chrome-sandbox binary
     condition: eq(variables['Agent.OS'], 'Linux')

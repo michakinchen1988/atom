@@ -8,7 +8,7 @@ steps:
       sudo apt-get install -y build-essential ca-certificates xvfb fakeroot git libsecret-1-dev libx11-dev libxkbfile-dev xz-utils xorriso zsync libxss1 libgtk-3-0 libasound2 libicu-dev software-properties-common wget
       # Install newer Clang compiler toolchain (for Trusty)
       wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-      sudo apt-add-repository "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty main"
+      sudo apt-add-repository "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-8 main"
       sudo apt-get update
       sudo apt-get install -y clang
       # We need Powershell to run some later CI steps...

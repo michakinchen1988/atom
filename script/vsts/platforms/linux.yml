@@ -6,6 +6,7 @@ jobs:
       ReleaseVersion: $[ dependencies.GetReleaseVersion.outputs['Version.ReleaseVersion'] ]
     pool:
       vmImage: ubuntu-16.04
+    container: ubuntu:16.04
 
     steps:
       - template: templates/preparation.yml

@@ -2,6 +2,8 @@ steps:
 
   # Linux Specific
   - script: |
+      echo "whoami:"
+      whoami
       sudo apt-get update
       sudo apt-get install -y build-essential ca-certificates xvfb fakeroot git libsecret-1-dev libx11-dev libxkbfile-dev xz-utils xorriso zsync libxss1 libgtk-3-0 libasound2 libicu-dev software-properties-common wget
       # rpm needs to be at least 4.13, in xenial it is too old

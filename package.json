@@ -59,7 +59,7 @@
     "exception-reporting": "file:packages/exception-reporting",
     "find-and-replace": "https://www.atom.io/api/packages/find-and-replace/versions/0.219.8/tarball",
     "find-parent-dir": "^0.3.0",
-    "first-mate": "7.4.1",
+    "first-mate": "7.4.2",
     "focus-trap": "6.3.0",
     "fs-admin": "0.15.0",
     "fs-plus": "^3.1.1",

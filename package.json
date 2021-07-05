@@ -59,7 +59,7 @@
     "exception-reporting": "file:packages/exception-reporting",
     "find-and-replace": "https://www.atom.io/api/packages/find-and-replace/versions/0.219.8/tarball",
     "find-parent-dir": "^0.3.0",
-    "first-mate": "https://github.com/DeeDeeG/first-mate#5fd88d8e743c844761a633da4c15505a8b1d142a",
+    "first-mate": "https://github.com/DeeDeeG/first-mate#e1460701828d7c805804a96398e4866211009f7e",
     "focus-trap": "6.3.0",
     "fs-admin": "0.15.0",
     "fs-plus": "^3.1.1",

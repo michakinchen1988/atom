@@ -23,7 +23,7 @@
     "async": "3.2.0",
     "atom-dark-syntax": "file:packages/atom-dark-syntax",
     "atom-dark-ui": "file:packages/atom-dark-ui",
-    "atom-keymap": "git+https://github.com/DeeDeeG/atom-keymap.git#f12b3f2a337195600fe0bb6f375d7890f1082d25",
+    "atom-keymap": "git+https://github.com/atom/atom-keymap.git#ebf2ed41fb1b0e770adcdba4202971e57256492d",
     "atom-light-syntax": "file:packages/atom-light-syntax",
     "atom-light-ui": "file:packages/atom-light-ui",
     "atom-select-list": "^0.8.1",

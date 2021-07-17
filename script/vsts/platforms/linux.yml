@@ -7,8 +7,8 @@ jobs:
     pool:
       vmImage: ubuntu-16.04
     container:
-      image: ubuntu:16.04
-      options: --user root
+      image: node:12-stretch
+      options: --user root --entrypoint bash
 
     steps:
       - template: templates/preparation.yml

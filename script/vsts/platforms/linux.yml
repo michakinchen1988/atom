@@ -8,7 +8,7 @@ jobs:
       vmImage: ubuntu-16.04
     container:
       image: node:12-stretch
-      options: --user root --entrypoint bash --interactive --tty
+      options: --user root
 
     steps:
       - template: templates/preparation.yml
